@@ -17,12 +17,12 @@ public class CustomerFinderUtil {
 
     public Mono<Customer> find(String ssn) {
         return repository
-        .findAll()
-        .filter(e -> e.getSsn().equals(ssn)
-            && e.getArchivedAt() == null
-        )
-        .singleOrEmpty()
-        .switchIfEmpty(Mono.error(new CustomerNotFoundError(ssn)));
+            .findAll()
+            .filter(e -> e.getSsn().equals(ssn)
+                && e.getArchivedAt() == null
+            )
+            .singleOrEmpty()
+            .switchIfEmpty(Mono.error(new CustomerNotFoundError(ssn)));
     }
     
 }
