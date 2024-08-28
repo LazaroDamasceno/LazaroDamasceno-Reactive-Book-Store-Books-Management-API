@@ -6,6 +6,7 @@ import com.api.v1.dtos.requests.UpdateCustomerRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.mappers.CustomerResponseMapper;
 import com.api.v1.utils.CustomerFinderUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -20,7 +21,7 @@ class CustomerUpdateServiceImpl implements CustomerUpdateService {
     private CustomerRepository repository;
 
     @Override
-    public Mono<CustomerResponseDto> update(String ssn, UpdateCustomerRequestDto request) {
+    public Mono<CustomerResponseDto> update(String ssn, @Valid UpdateCustomerRequestDto request) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMap(existingCustomer -> {
