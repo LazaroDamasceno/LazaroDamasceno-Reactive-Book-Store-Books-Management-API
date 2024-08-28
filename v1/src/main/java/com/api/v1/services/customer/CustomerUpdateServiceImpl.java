@@ -23,9 +23,9 @@ class CustomerUpdateServiceImpl implements CustomerUpdateService {
     public Mono<CustomerResponseDto> update(String ssn, UpdateCustomerRequestDto request) {
         return customerFinderUtil
                 .find(ssn)
-                .flatMap(customer -> {
-                    customer.archive();
-                    return repository.save(customer);
+                .flatMap(existingCustomer -> {
+                    existingCustomer.archive();
+                    return repository.save(existingCustomer);
                 })
                 .flatMap(archivedCustomer -> {
                     Customer updatedCustomer = archivedCustomer.update(request);
