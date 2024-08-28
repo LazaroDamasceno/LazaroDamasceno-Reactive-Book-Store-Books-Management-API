@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.CustomerRepository;
-import com.api.v1.exceptions.CustomerNotFoundError;
+import com.api.v1.exceptions.customer.CustomerNotFoundError;
 
 import reactor.core.publisher.Mono;
 
@@ -26,3 +26,4 @@ public class CustomerFinderUtil {
     }
     
 }
+
