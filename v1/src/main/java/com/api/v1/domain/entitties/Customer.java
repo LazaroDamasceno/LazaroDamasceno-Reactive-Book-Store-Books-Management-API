@@ -69,6 +69,11 @@ public class Customer {
         this.gender = gender;
     }
 
+    public String getFullNamer() {
+        if (middleName.isEmpty()) return String.format("%s %s", firstName, lastName);
+        return String.format("%s %s %s", firstName, middleName, lastName);
+    }
+
     public void archived() {
         this.archivedAt = ZonedDateTime.now().toString();
     }
