@@ -1,4 +1,4 @@
-package com.api.v1.domain.entitties;
+package com.api.v1.domain.entities;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;

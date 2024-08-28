@@ -1,6 +1,6 @@
 package com.api.v1.mappers;
 
-import com.api.v1.domain.entitties.Customer;
+import com.api.v1.domain.entities.Customer;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 
 public class CustomerResponseMapper {
