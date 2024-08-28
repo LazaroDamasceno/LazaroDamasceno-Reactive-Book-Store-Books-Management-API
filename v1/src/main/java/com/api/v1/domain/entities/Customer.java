@@ -12,10 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Customer {
 
     @Id
-    private final UUID id = UUID.randomUUID();
+    private UUID id;
 
     @Field
-    private final String createdAt = ZonedDateTime.now().toString();
+    private String createdAt;
 
     @Field
     private String firstName;
@@ -27,7 +27,7 @@ public class Customer {
     private String lastName;
 
     @Field
-    private final String ssn;
+    private String ssn;
 
     @Field
     private LocalDate birthDate;
@@ -58,6 +58,8 @@ public class Customer {
         String phoneNumber, 
         String gender
     ) {
+        this.id = UUID.randomUUID();
+        this.createdAt = ZonedDateTime.now().toString();
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -88,6 +90,7 @@ public class Customer {
         String phoneNumber, 
         String gender
     ) {
+        this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -96,6 +99,7 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.archivedAt = null;
         return this;
     }
 
@@ -146,5 +150,5 @@ public class Customer {
     public String getArchivedAt() {
         return archivedAt;
     }
-    
+
 }
