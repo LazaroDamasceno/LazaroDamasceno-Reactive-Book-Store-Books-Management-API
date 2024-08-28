@@ -69,7 +69,7 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getFullNamer() {
+    public String getFullName() {
         if (middleName.isEmpty()) return String.format("%s %s", firstName, lastName);
         return String.format("%s %s %s", firstName, middleName, lastName);
     }
