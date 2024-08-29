@@ -1,8 +1,8 @@
 package com.api.v1.exceptions.customer;
 
-public class DuplicatedSsnError extends RuntimeException {
+public class DuplicatedSsnException extends RuntimeException {
 
-    public DuplicatedSsnError(String ssn) {
+    public DuplicatedSsnException(String ssn) {
         super("SSN %s is already registered.".formatted(ssn));
     }
     

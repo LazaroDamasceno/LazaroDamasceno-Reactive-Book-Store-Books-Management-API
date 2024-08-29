@@ -8,7 +8,7 @@ import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.CustomerRepository;
 import com.api.v1.dtos.requests.NewCustomerRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
-import com.api.v1.exceptions.customer.DuplicatedSsnError;
+import com.api.v1.exceptions.customer.DuplicatedSsnException;
 import com.api.v1.mappers.CustomerResponseMapper;
 
 import jakarta.validation.Valid;
@@ -30,7 +30,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
             )
             .hasElements()
             .flatMap(exists -> {
-                if (exists) return Mono.error(new DuplicatedSsnError(request.ssn()));
+                if (exists) return Mono.error(new DuplicatedSsnException(request.ssn()));
                 return Mono.defer(() -> {
                     Customer newCustomer = CustomerBuilder.create().fromDto(request).build();
                     Mono<Customer> savedCustomer = repository.save(newCustomer);
