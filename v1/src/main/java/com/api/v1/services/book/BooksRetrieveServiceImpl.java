@@ -1,6 +1,5 @@
 package com.api.v1.services.book;
 
-import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.repositories.BookRepository;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.mappers.BookResponseMapper;
