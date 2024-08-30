@@ -1,0 +1,39 @@
+package com.api.v1.services.book;
+
+import com.api.v1.builders.BookBuilder;
+import com.api.v1.domain.entities.Book;
+import com.api.v1.domain.repositories.BookRepository;
+import com.api.v1.dtos.requests.NewBookRequestDto;
+import com.api.v1.dtos.responses.BookResponseDto;
+import com.api.v1.exceptions.book.DuplicatedIsbnException;
+import com.api.v1.mappers.BookResponseMapper;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+@Service
+class BookRegistrationServiceImpl implements BookRegistrationService {
+
+    @Autowired
+    private BookRepository repository;
+
+    @Override
+    public Mono<BookResponseDto> register(@Valid NewBookRequestDto request) {
+        return repository
+                .findAll()
+                .filter(book -> book.getIsbn().equals(request.isbn())
+                    && book.getArchivedAt() == null
+                )
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) return Mono.error(new DuplicatedIsbnException(request.isbn()));
+                    return Mono.defer(() -> {
+                        Book newBook = BookBuilder.create().fromDto(request).build();
+                        Mono<Book> savedNewBook = repository.save(newBook);
+                        return savedNewBook.flatMap(savedBook -> Mono.just(BookResponseMapper.map(savedBook)));
+                    });
+                });
+    }
+
+}
