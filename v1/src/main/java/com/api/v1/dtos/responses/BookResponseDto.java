@@ -7,6 +7,7 @@ public record BookResponseDto(
         String field,
         int numberOfPages,
         int version,
-        double price
+        double price,
+        String publisher
 ) {
 }

@@ -10,6 +10,7 @@ public record UpdateBookRequestDto(
         @NotBlank String field,
         int numberOfPages,
         @Min(1) int version,
-        double price
+        double price,
+        @NotBlank String publisher
 ) {
 }

@@ -42,6 +42,9 @@ public class Book {
     private double price;
 
     @Field
+    private String publisher;
+
+    @Field
     private String archivedAt;
 
     public Book(
@@ -125,6 +128,10 @@ public class Book {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getPublisher() {
+        return publisher;
     }
 
 }
