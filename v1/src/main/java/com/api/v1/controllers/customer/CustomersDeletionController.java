@@ -15,12 +15,12 @@ public class CustomersDeletionController {
     @Autowired
     private CustomersDeletionService service;
 
-    @DeleteMapping("obliteration")
+    @DeleteMapping
     public Mono<Void> deleteAll() {
         return service.deleteAll();
     }
 
-    @DeleteMapping("{ssn}/obliteration")
+    @DeleteMapping("{ssn}")
     public Mono<Void> deleteBySsn(@PathVariable String ssn) {
         return service.deleteBySsn(ssn);
     }

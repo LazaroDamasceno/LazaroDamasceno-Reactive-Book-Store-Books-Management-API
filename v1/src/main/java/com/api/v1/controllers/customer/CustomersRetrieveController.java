@@ -21,13 +21,13 @@ public class CustomersRetrieveController {
     @Autowired
     private CustomersRetrieveService service;
 
-    @GetMapping("retrieving")
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<CustomerResponseDto> retrieveAll() {
         return service.retrieveAll();
     }
 
-    @GetMapping("{ssn}/retrieving")
+    @GetMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<CustomerResponseDto> retrieveBySsn(@PathVariable String ssn) {
         return service.retrieveBySsn(ssn);

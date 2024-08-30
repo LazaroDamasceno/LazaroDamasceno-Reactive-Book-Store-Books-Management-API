@@ -16,7 +16,7 @@ public class CustomerUpdateController {
     @Autowired
     private CustomerUpdateService service;
 
-    @PutMapping("{ssn}/updating")
+    @PutMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<CustomerResponseDto> update(
             @PathVariable String ssn,

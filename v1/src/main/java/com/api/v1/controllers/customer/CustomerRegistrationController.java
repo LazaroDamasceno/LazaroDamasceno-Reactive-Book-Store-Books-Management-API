@@ -16,7 +16,7 @@ public class CustomerRegistrationController {
     @Autowired
     private CustomerRegistrationService service;
 
-    @PostMapping("registration")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Mono<CustomerResponseDto> register(@Valid @RequestBody NewCustomerRequestDto request) {
         return service.register(request);
