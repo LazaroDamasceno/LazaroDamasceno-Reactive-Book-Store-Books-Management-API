@@ -57,7 +57,10 @@ public class Book {
             String author,
             String field,
             int numberOfPages,
-            int version
+            int version,
+            double price,
+            String publisher,
+            int publishingYear
     ) {
         this.isbn = isbn;
         this.title = title;
@@ -66,6 +69,9 @@ public class Book {
         this.field = field;
         this.numberOfPages = numberOfPages;
         this.version = version;
+        this.price = price;
+        this.publisher = publisher;
+        this.publishingYear = publishingYear;
     }
 
     public void archive() {
@@ -80,6 +86,9 @@ public class Book {
         this.field = request.field();
         this.numberOfPages = request.numberOfPages();
         this.version = request.version();
+        this.price = request.price();
+        this.publisher = request.publisher();
+        this.publishingYear = request.publishingYear();
         this.archivedAt = null;
         return this;
     }
