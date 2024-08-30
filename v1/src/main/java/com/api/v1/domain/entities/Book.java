@@ -1,5 +1,6 @@
 package com.api.v1.domain.entities;
 
+import com.api.v1.dtos.requests.UpdateBookRequestDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -38,6 +39,9 @@ public class Book {
     private int version;
 
     @Field
+    private double price;
+
+    @Field
     private String archivedAt;
 
     public Book(
@@ -62,23 +66,21 @@ public class Book {
         this.archivedAt = ZonedDateTime.now().toString();
     }
 
-    public Book update(
-            String title,
-            String subtitle,
-            String author,
-            String field,
-            int numberOfPages,
-            int version
-    ) {
+    public Book update(UpdateBookRequestDto request) {
         this.id = UUID.randomUUID();
-        this.title = title;
-        this.subtitle = subtitle;
-        this.author = author;
-        this.field = field;
-        this.numberOfPages = numberOfPages;
-        this.version = version;
+        this.title = request.title();
+        this.subtitle = request.subtitle();
+        this.author = request.author();
+        this.field = request.field();
+        this.numberOfPages = request.numberOfPages();
+        this.version = request.version();
         this.archivedAt = null;
         return this;
+    }
+
+    public String getFullTitle() {
+        if (subtitle.isEmpty()) return title;
+        return String.format("%s: %s", title, subtitle);
     }
 
     public UUID getId() {
@@ -119,6 +121,10 @@ public class Book {
 
     public String getArchivedAt() {
         return archivedAt;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
 }
