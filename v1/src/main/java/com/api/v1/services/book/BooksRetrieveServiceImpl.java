@@ -4,6 +4,7 @@ import com.api.v1.domain.repositories.BookRepository;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.mappers.BookResponseMapper;
 import com.api.v1.utils.BookFinderUtil;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -33,7 +34,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByAuthor(String author) {
+    public Flux<BookResponseDto> retrieveByAuthor(@NotBlank String author) {
         return repository
                 .findAll()
                 .filter(e -> e.getAuthor().equals(author))
@@ -41,7 +42,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByField(String field) {
+    public Flux<BookResponseDto> retrieveByField(@NotBlank String field) {
         return repository
                 .findAll()
                 .filter(e -> e.getField().equals(field))
@@ -57,7 +58,11 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByAuthorAndFieldAndYear(String author, String field, int year) {
+    public Flux<BookResponseDto> retrieveByAuthorAndFieldAndYear(
+            @NotBlank String author,
+            @NotBlank String field,
+            int year
+    ) {
         return repository
                 .findAll()
                 .filter(e -> e.getAuthor().equals(author)
@@ -68,7 +73,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByAuthorAndField(String author, String field) {
+    public Flux<BookResponseDto> retrieveByAuthorAndField(@NotBlank String author, @NotBlank String field) {
         return repository
                 .findAll()
                 .filter(e -> e.getAuthor().equals(author)
@@ -78,7 +83,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByAuthorAndYear(String author, int year) {
+    public Flux<BookResponseDto> retrieveByAuthorAndYear(@NotBlank String author, int year) {
         return repository
                 .findAll()
                 .filter(e -> e.getAuthor().equals(author)
@@ -88,7 +93,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByFieldAndYear(String field, int year) {
+    public Flux<BookResponseDto> retrieveByFieldAndYear(@NotBlank String field, int year) {
         return repository
                 .findAll()
                 .filter(e -> e.getField().equals(field)
