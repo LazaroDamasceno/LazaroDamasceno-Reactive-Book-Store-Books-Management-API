@@ -13,13 +13,13 @@ public class BooksDeletionController {
     @Autowired
     private BooksDeletionService service;
 
-    @DeleteMapping("obliteration")
+    @DeleteMapping("deletion")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteAll() {
         return service.deleteAll();
     }
 
-    @DeleteMapping("{isbn}/obliteration")
+    @DeleteMapping("{isbn}/deletion")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByIsbn(@PathVariable String isbn) {
         return service.deleteByIsbn(isbn);
