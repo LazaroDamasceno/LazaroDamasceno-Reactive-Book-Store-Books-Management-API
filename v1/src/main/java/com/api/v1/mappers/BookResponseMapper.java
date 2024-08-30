@@ -13,7 +13,8 @@ public class BookResponseMapper {
                 book.getField(),
                 book.getNumberOfPages(),
                 book.getVersion(),
-                book.getPrice()
+                book.getPrice(),
+                book.getPublisher()
         );
     }
 
