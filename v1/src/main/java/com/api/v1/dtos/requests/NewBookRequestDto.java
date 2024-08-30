@@ -12,6 +12,7 @@ public record NewBookRequestDto(
         int numberOfPages,
         @Min(1) int version,
         double price,
-        @NotBlank String publisher
+        @NotBlank String publisher,
+        int publishingYear
 ) {
 }

@@ -45,6 +45,9 @@ public class Book {
     private String publisher;
 
     @Field
+    private int publishingYear;
+
+    @Field
     private String archivedAt;
 
     public Book(
@@ -132,6 +135,10 @@ public class Book {
 
     public String getPublisher() {
         return publisher;
+    }
+
+    public int getPublishingYear() {
+        return publishingYear;
     }
 
 }
