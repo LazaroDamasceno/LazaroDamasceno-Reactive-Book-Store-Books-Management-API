@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class StatesSalesTaxRatesUtil {
 
-    public static Map<String, Double> map(String state) {
+    public static double map(String state) {
         Map<String, Double> saleTaxes = new HashMap<>();
         saleTaxes.put("Alabama", 0.04);
         saleTaxes.put("Alaska", 0.0);
@@ -57,7 +57,7 @@ public class StatesSalesTaxRatesUtil {
         saleTaxes.put("West Virginia", 0.065);
         saleTaxes.put("Wisconsin", 0.055);
         saleTaxes.put("Wyoming", 0.05);
-        return saleTaxes;
+        return saleTaxes.get(state);
     }
 
 }
