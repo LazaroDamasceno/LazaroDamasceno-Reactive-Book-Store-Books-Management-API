@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import com.api.v1.dtos.requests.UpdateCustomerRequestDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -79,20 +78,6 @@ public class Customer {
 
     public void archive() {
         this.archivedAt = ZonedDateTime.now().toString();
-    }
-
-    public Customer update(UpdateCustomerRequestDto request) {
-        this.id = UUID.randomUUID();
-        this.firstName = request.firstName();
-        this.middleName = request.middleName();
-        this.lastName = request.lastName();
-        this.birthDate = request.birthDate();
-        this.email = request.email();
-        this.address = request.address();
-        this.phoneNumber = request.phoneNumber();
-        this.gender = request.gender();
-        this.archivedAt = null;
-        return this;
     }
 
     public UUID getId() {

@@ -1,6 +1,6 @@
 package com.api.v1.controllers.customer;
 
-import com.api.v1.dtos.requests.UpdateCustomerRequestDto;
+import com.api.v1.dtos.requests.NewCustomerRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.services.customer.CustomerUpdateService;
 import jakarta.validation.Valid;
@@ -16,13 +16,12 @@ public class CustomerUpdateController {
     @Autowired
     private CustomerUpdateService service;
 
-    @PutMapping("{ssn}")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<CustomerResponseDto> update(
-            @PathVariable String ssn,
-            @Valid @RequestBody UpdateCustomerRequestDto request
+            @Valid @RequestBody NewCustomerRequestDto request
     ) {
-        return service.update(ssn,request);
+        return service.update(request);
     }
 
 }

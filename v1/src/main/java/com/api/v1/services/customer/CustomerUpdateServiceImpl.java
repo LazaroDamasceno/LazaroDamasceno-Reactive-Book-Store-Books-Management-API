@@ -1,8 +1,9 @@
 package com.api.v1.services.customer;
 
+import com.api.v1.builders.CustomerBuilder;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.CustomerRepository;
-import com.api.v1.dtos.requests.UpdateCustomerRequestDto;
+import com.api.v1.dtos.requests.NewCustomerRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.mappers.CustomerResponseMapper;
 import com.api.v1.utils.CustomerFinderUtil;
@@ -21,18 +22,18 @@ class CustomerUpdateServiceImpl implements CustomerUpdateService {
     private CustomerRepository repository;
 
     @Override
-    public Mono<CustomerResponseDto> update(String ssn, @Valid UpdateCustomerRequestDto request) {
+    public Mono<CustomerResponseDto> update(@Valid NewCustomerRequestDto request) {
         return customerFinderUtil
-                .find(ssn)
+                .find(request.ssn())
                 .flatMap(existingCustomer -> {
                     existingCustomer.archive();
                     return repository.save(existingCustomer);
-                })
-                .flatMap(archivedCustomer -> {
-                    Customer updatedCustomer = archivedCustomer.update(request);
-                    return repository.save(updatedCustomer);
-                })
-                .flatMap(updatedCustomer -> Mono.just(CustomerResponseMapper.map(updatedCustomer)));
+                }).then(Mono.defer(() -> {
+                    Customer updatedCustomer = CustomerBuilder.create().fromDto(request).build();
+                    return repository
+                            .save(updatedCustomer)
+                            .flatMap(customer -> Mono.just(CustomerResponseMapper.map(customer)));
+                }));
     }
 
 }
