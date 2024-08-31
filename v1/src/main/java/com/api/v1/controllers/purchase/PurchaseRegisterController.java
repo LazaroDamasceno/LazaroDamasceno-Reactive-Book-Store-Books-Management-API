@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/purchases")
-public class RegisterPurchaseController {
+public class PurchaseRegisterController {
 
     @Autowired
     private PurchaseRegistrationService service;
