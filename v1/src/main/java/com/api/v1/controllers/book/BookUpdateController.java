@@ -1,6 +1,6 @@
 package com.api.v1.controllers.book;
 
-import com.api.v1.dtos.requests.UpdateBookRequestDto;
+import com.api.v1.dtos.requests.NewBookRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.services.book.BookUpdateService;
 import jakarta.validation.Valid;
@@ -16,10 +16,10 @@ public class BookUpdateController {
     @Autowired
     private BookUpdateService service;
 
-    @PutMapping("{isbn}")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<BookResponseDto> update(@PathVariable String isbn, @Valid @RequestBody UpdateBookRequestDto request) {
-        return service.update(isbn, request);
+    public Mono<BookResponseDto> update(@Valid @RequestBody NewBookRequestDto request) {
+        return service.update(request);
     }
 
 }

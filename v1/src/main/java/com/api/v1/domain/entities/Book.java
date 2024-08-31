@@ -1,6 +1,5 @@
 package com.api.v1.domain.entities;
 
-import com.api.v1.dtos.requests.UpdateBookRequestDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -76,21 +75,6 @@ public class Book {
 
     public void archive() {
         this.archivedAt = ZonedDateTime.now().toString();
-    }
-
-    public Book update(UpdateBookRequestDto request) {
-        this.id = UUID.randomUUID();
-        this.title = request.title();
-        this.subtitle = request.subtitle();
-        this.author = request.author();
-        this.field = request.field();
-        this.numberOfPages = request.numberOfPages();
-        this.version = request.version();
-        this.price = request.price();
-        this.publisher = request.publisher();
-        this.publishingYear = request.publishingYear();
-        this.archivedAt = null;
-        return this;
     }
 
     public String getFullTitle() {
