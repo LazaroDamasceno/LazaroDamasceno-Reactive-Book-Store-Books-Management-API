@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "v1_purchases")
 public record Purchase(
-        @NotNull Book dto,
+        @NotNull Book book,
         @NotNull Customer customer,
         double bookPrice,
         double finalPrice,

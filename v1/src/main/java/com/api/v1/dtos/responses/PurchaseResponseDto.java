@@ -4,9 +4,9 @@ public record PurchaseResponseDto(
         BookResponseDto book,
         CustomerResponseDto customer,
         double bookPrice,
+        String state,
         double saleTax,
         double finalPrice,
-        String state,
         String createdAt
 ) {
 }
