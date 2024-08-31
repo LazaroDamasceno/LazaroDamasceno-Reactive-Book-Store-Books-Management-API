@@ -36,7 +36,28 @@ public class SaleTaxUtil {
         saleTaxes.put("Nebraska", 0.065);
         saleTaxes.put("Nevada", 0.0685);
         saleTaxes.put("New Hampshire", 0.0);
-        return null;
+        saleTaxes.put("New Jersey", 0.06625);
+        saleTaxes.put("New Mexico", 0.0775);
+        saleTaxes.put("New York", 0.04);
+        saleTaxes.put("North Carolina", 0.0475);
+        saleTaxes.put("North Dakota", 0.0675);
+        saleTaxes.put("Ohio", 0.0575);
+        saleTaxes.put("Oklahoma", 0.045);
+        saleTaxes.put("Oregon", 0.0);
+        saleTaxes.put("Pennsylvania", 0.06);
+        saleTaxes.put("Rhode Island", 0.07);
+        saleTaxes.put("South Carolina", 0.06);
+        saleTaxes.put("South Dakota", 0.06);
+        saleTaxes.put("Tennessee", 0.07);
+        saleTaxes.put("Texas", 0.0625);
+        saleTaxes.put("Utah", 0.0665);
+        saleTaxes.put("Vermont", 0.06);
+        saleTaxes.put("Virginia", 0.06);
+        saleTaxes.put("Washington", 0.065);
+        saleTaxes.put("West Virginia", 0.065);
+        saleTaxes.put("Wisconsin", 0.055);
+        saleTaxes.put("Wyoming", 0.05);
+        return saleTaxes;
     }
 
 }
