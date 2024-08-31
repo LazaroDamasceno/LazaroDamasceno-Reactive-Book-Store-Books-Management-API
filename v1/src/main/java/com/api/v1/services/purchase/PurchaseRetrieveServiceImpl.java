@@ -96,7 +96,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByBookAAndYear(String isbn, int year) {
+    public Flux<PurchaseResponseDto> retrieveByBookAndYear(String isbn, int year) {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository

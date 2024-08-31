@@ -11,7 +11,7 @@ public interface PurchaseRetrieveService {
     Flux<PurchaseResponseDto> retrieveByYear(int year);
     Flux<PurchaseResponseDto> retrieveByBookAndCustomerAndYear(String isbn,String ssn, int year);
     Flux<PurchaseResponseDto> retrieveByBookAndCustomer(String isbn,String ssn);
-    Flux<PurchaseResponseDto> retrieveByBookAAndYear(String isbn, int year);
+    Flux<PurchaseResponseDto> retrieveByBookAndYear(String isbn, int year);
     Flux<PurchaseResponseDto> retrieveByCustomerAndYear(String ssn, int year);
 
 }
