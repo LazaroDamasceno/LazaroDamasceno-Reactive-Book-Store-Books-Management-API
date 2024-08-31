@@ -66,7 +66,7 @@ public class PurchaseRetrieveController {
         return service.retrieveByBookAndYear(isbn,  year);
     }
 
-    @GetMapping("{isbn}/{year}")
+    @GetMapping("{ssn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByCustomerAndYear(
             @PathVariable String ssn,
