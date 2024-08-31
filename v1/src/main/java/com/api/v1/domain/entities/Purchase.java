@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public record Purchase(
         Book dto,
         Customer customer,
-        double bookPrince,
+        double bookPrice,
         double finalPrice,
         String state,
         String createdAt
