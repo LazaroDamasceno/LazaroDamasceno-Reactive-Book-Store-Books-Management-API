@@ -1,6 +1,7 @@
 package com.api.v1.services.customer;
 
 import com.api.v1.domain.repositories.CustomerRepository;
+import com.api.v1.exceptions.customer.CustomerDataDeletionException;
 import com.api.v1.utils.customer.CustomerFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,13 @@ class CustomersDeletionServiceImpl implements CustomersDeletionService {
 
     @Override
     public Mono<Void> deleteAll() {
-        return repository.deleteAll();
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) return repository.deleteAll();
+                    return Mono.error(CustomerDataDeletionException::new);
+                });
     }
 
     @Override
