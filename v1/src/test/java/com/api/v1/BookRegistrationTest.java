@@ -1,6 +1,7 @@
 package com.api.v1;
 
 import com.api.v1.dtos.requests.NewBookRequestDto;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -11,6 +12,7 @@ public class BookRegistrationTest {
     @Autowired
     private WebTestClient webTestClient;
 
+    @Test
     void testSuccessfulBookRegistration() {
 
         var registrationRequest = new NewBookRequestDto(
@@ -36,6 +38,7 @@ public class BookRegistrationTest {
 
     }
 
+    @Test
     void testUnsuccessfulBookRegistration() {
 
         var registrationRequest = new NewBookRequestDto(
