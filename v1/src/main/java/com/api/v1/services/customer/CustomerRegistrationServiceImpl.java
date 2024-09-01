@@ -9,7 +9,7 @@ import com.api.v1.domain.repositories.CustomerRepository;
 import com.api.v1.dtos.requests.NewCustomerRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.exceptions.customer.DuplicatedSsnException;
-import com.api.v1.mappers.CustomerResponseMapper;
+import com.api.v1.mappers.customer.CustomerResponseMapper;
 
 import jakarta.validation.Valid;
 import reactor.core.publisher.Mono;

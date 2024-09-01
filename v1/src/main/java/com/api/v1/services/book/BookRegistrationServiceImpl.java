@@ -6,7 +6,7 @@ import com.api.v1.domain.repositories.BookRepository;
 import com.api.v1.dtos.requests.NewBookRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.exceptions.book.DuplicatedIsbnException;
-import com.api.v1.mappers.BookResponseMapper;
+import com.api.v1.mappers.book.BookResponseMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

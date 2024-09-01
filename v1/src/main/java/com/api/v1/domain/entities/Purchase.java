@@ -1,6 +1,6 @@
 package com.api.v1.domain.entities;
 
-import com.api.v1.utils.SaleTaxRatesUtil;
+import com.api.v1.utils.book.SaleTaxRatesUtil;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;

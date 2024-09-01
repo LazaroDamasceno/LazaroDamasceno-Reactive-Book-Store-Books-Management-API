@@ -1,7 +1,9 @@
-package com.api.v1.mappers;
+package com.api.v1.mappers.purchase;
 
 import com.api.v1.domain.entities.Purchase;
 import com.api.v1.dtos.responses.PurchaseResponseDto;
+import com.api.v1.mappers.book.BookResponseMapper;
+import com.api.v1.mappers.customer.CustomerResponseMapper;
 
 public class PurchaseResponseMapper {
 

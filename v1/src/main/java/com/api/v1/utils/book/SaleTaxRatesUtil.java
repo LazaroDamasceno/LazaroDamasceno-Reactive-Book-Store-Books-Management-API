@@ -1,4 +1,4 @@
-package com.api.v1.utils;
+package com.api.v1.utils.book;
 
 import java.util.HashMap;
 import java.util.Map;

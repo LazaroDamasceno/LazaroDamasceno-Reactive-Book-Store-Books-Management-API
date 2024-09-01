@@ -1,4 +1,4 @@
-package com.api.v1.mappers;
+package com.api.v1.mappers.book;
 
 import com.api.v1.domain.entities.Book;
 import com.api.v1.dtos.responses.BookResponseDto;

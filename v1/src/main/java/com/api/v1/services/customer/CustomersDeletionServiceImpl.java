@@ -1,7 +1,7 @@
 package com.api.v1.services.customer;
 
 import com.api.v1.domain.repositories.CustomerRepository;
-import com.api.v1.utils.CustomerFinderUtil;
+import com.api.v1.utils.customer.CustomerFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

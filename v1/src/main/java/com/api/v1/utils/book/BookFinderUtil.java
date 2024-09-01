@@ -1,4 +1,4 @@
-package com.api.v1.utils;
+package com.api.v1.utils.book;
 
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.repositories.BookRepository;

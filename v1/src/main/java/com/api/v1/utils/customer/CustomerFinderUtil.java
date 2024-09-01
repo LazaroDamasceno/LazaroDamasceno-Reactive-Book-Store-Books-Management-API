@@ -1,4 +1,4 @@
-package com.api.v1.utils;
+package com.api.v1.utils.customer;
 
 import com.api.v1.exceptions.customer.DuplicatedSsnException;
 import org.springframework.beans.factory.annotation.Autowired;

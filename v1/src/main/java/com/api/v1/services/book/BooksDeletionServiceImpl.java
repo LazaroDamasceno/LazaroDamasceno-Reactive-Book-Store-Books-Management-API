@@ -1,7 +1,7 @@
 package com.api.v1.services.book;
 
 import com.api.v1.domain.repositories.BookRepository;
-import com.api.v1.utils.BookFinderUtil;
+import com.api.v1.utils.book.BookFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

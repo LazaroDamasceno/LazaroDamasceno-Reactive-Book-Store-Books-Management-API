@@ -1,4 +1,4 @@
-package com.api.v1.utils;
+package com.api.v1.utils.pageable;
 
 import com.api.v1.dtos.requests.PaginationRequestDto;
 import org.springframework.data.domain.PageRequest;

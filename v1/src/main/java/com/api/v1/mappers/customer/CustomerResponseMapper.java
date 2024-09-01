@@ -1,4 +1,4 @@
-package com.api.v1.mappers;
+package com.api.v1.mappers.customer;
 
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.dtos.responses.CustomerResponseDto;
