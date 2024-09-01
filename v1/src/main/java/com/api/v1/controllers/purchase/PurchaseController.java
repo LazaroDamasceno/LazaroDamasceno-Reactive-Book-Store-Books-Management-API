@@ -40,25 +40,25 @@ public class PurchaseController {
 
     @DeleteMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByCustomer(@PathVariable String ssn) {
+    public Mono<Void> deleteByCustomer(@PathVariable String ssn) {
         return deletionService.deleteByCustomer(ssn);
     }
 
     @DeleteMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByBook(@PathVariable String isbn) {
+    public Mono<Void> deleteByBook(@PathVariable String isbn) {
         return deletionService.deleteByBook(isbn);
     }
 
     @DeleteMapping("{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByYear(@PathVariable int year) {
+    public Mono<Void> deleteByYear(@PathVariable int year) {
         return deletionService.deleteByYear(year);
     }
 
     @DeleteMapping("{ssn}/{isbn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByCustomerAndBookAndYear(
+    public Mono<Void> deleteByCustomerAndBookAndYear(
             @PathVariable String ssn,
             @PathVariable String isbn,
             @PathVariable int year
@@ -68,19 +68,19 @@ public class PurchaseController {
 
     @DeleteMapping("{ssn}/{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByCustomerAndBook(@PathVariable String ssn, @PathVariable String isbn) {
+    public Mono<Void> deleteByCustomerAndBook(@PathVariable String ssn, @PathVariable String isbn) {
         return deletionService.deleteByCustomerAndBook(ssn, isbn);
     }
 
     @DeleteMapping("{ssn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByCustomerAndYear(@PathVariable String ssn, @PathVariable int year) {
+    public Mono<Void> deleteByCustomerAndYear(@PathVariable String ssn, @PathVariable int year) {
         return deletionService.deleteByCustomerAndYear(ssn, year);
     }
 
     @DeleteMapping("{isbn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<Void> deleteByBookAndYear(@PathVariable String isbn, @PathVariable int year) {
+    public Mono<Void> deleteByBookAndYear(@PathVariable String isbn, @PathVariable int year) {
         return deletionService.deleteByBookAndYear(isbn, year);
     }
 
