@@ -1,6 +1,7 @@
 package com.api.v1.services.book;
 
 import com.api.v1.domain.repositories.BookRepository;
+import com.api.v1.exceptions.book.BookDataDeletionException;
 import com.api.v1.utils.book.BookFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,13 @@ class BooksDeletionServiceImpl implements BooksDeletionService {
 
     @Override
     public Mono<Void> deleteAll() {
-        return repository.deleteAll();
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) return repository.deleteAll();
+                    return Mono.error(BookDataDeletionException::new);
+                });
     }
 
     @Override
