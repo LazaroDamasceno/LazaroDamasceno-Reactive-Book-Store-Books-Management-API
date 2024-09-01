@@ -3,7 +3,7 @@ package com.api.v1.services.purchase;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.PurchaseRepository;
-import com.api.v1.exceptions.PurchaseWasNotFoundException;
+import com.api.v1.exceptions.purchase.PurchaseWasNotFoundException;
 import com.api.v1.utils.BookFinderUtil;
 import com.api.v1.utils.CustomerFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
