@@ -1,7 +1,7 @@
 package com.api.v1.services.customer;
 
 import com.api.v1.dtos.requests.PaginationRequestDto;
-import com.api.v1.utils.PageableGetterUtil;
+import com.api.v1.utils.PageableUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ class CustomersRetrieveServiceImpl implements CustomersRetrieveService {
     @Override
     public Flux<CustomerResponseDto> retrieveAll(@Valid PaginationRequestDto pagination) {
         return repository
-            .findBy(PageableGetterUtil.get(pagination))
+            .findBy(PageableUtil.get(pagination))
             .filter(e -> e.getArchivedAt() == null)
             .flatMap(customer -> Flux.just(CustomerResponseMapper.map(customer)));
     }

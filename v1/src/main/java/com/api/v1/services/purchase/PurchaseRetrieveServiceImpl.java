@@ -8,7 +8,7 @@ import com.api.v1.dtos.responses.PurchaseResponseDto;
 import com.api.v1.mappers.PurchaseResponseMapper;
 import com.api.v1.utils.BookFinderUtil;
 import com.api.v1.utils.CustomerFinderUtil;
-import com.api.v1.utils.PageableGetterUtil;
+import com.api.v1.utils.PageableUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     @Override
     public Flux<PurchaseResponseDto> retrieveAll(@Valid PaginationRequestDto pagination) {
         return repository
-                .findBy(PageableGetterUtil.get(pagination))
+                .findBy(PageableUtil.get(pagination))
                 .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)));
     }
 
@@ -41,7 +41,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository
-                                        .findBy(PageableGetterUtil.get(pagination))
+                                        .findBy(PageableUtil.get(pagination))
                                         .filter(e -> e.book().equals(book))
                                         .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)))
                 );
@@ -53,7 +53,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(customer -> repository
-                                            .findBy(PageableGetterUtil.get(pagination))
+                                            .findBy(PageableUtil.get(pagination))
                                             .filter(e -> e.customer().equals(customer))
                                             .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)))
                 );
@@ -62,7 +62,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     @Override
     public Flux<PurchaseResponseDto> retrieveByYear(int year, @Valid PaginationRequestDto pagination) {
         return repository
-                .findBy(PageableGetterUtil.get(pagination))
+                .findBy(PageableUtil.get(pagination))
                 .filter(e -> ZonedDateTime.parse(e.createdAt()).getYear() == year)
                 .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)));
     }
@@ -79,7 +79,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return bookMono
                 .zipWith(customerMono)
                 .flatMapMany(tuple -> repository
-                            .findBy(PageableGetterUtil.get(pagination))
+                            .findBy(PageableUtil.get(pagination))
                             .filter(e -> e.book().equals(tuple.getT1())
                                     && e.customer().equals(tuple.getT2())
                                     && ZonedDateTime.parse(e.createdAt()).getYear() == year
@@ -99,7 +99,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return bookMono
                 .zipWith(customerMono)
                 .flatMapMany(tuple -> repository
-                        .findBy(PageableGetterUtil.get(pagination))
+                        .findBy(PageableUtil.get(pagination))
                         .filter(e -> e.book().equals(tuple.getT1())
                                 && e.customer().equals(tuple.getT2())
                         )
@@ -116,7 +116,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository
-                        .findBy(PageableGetterUtil.get(pagination))
+                        .findBy(PageableUtil.get(pagination))
                         .filter(e -> e.book().equals(book)
                                 && ZonedDateTime.parse(e.createdAt()).getYear() == year
                         )
@@ -133,7 +133,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(customer -> repository
-                        .findBy(PageableGetterUtil.get(pagination))
+                        .findBy(PageableUtil.get(pagination))
                         .filter(e -> e.customer().equals(customer)
                                 && ZonedDateTime.parse(e.createdAt()).getYear() == year
                         )
