@@ -1,12 +1,10 @@
 package com.api.v1.controllers.customer;
 
+import com.api.v1.dtos.requests.PaginationRequestDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.services.customer.CustomersRetrieveService;
@@ -23,8 +21,8 @@ public class CustomersRetrieveController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<CustomerResponseDto> retrieveAll() {
-        return service.retrieveAll();
+    public Flux<CustomerResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
+        return service.retrieveAll(pagination);
     }
 
     @GetMapping("{ssn}")
