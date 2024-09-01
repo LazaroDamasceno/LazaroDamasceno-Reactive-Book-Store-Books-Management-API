@@ -3,7 +3,7 @@ package com.api.v1.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StatesSalesTaxRatesUtil {
+public class SaleTaxRatesUtil {
 
     public static double map(String state) {
         Map<String, Double> saleTaxes = new HashMap<>();

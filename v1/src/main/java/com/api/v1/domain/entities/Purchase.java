@@ -1,6 +1,6 @@
 package com.api.v1.domain.entities;
 
-import com.api.v1.utils.StatesSalesTaxRatesUtil;
+import com.api.v1.utils.SaleTaxRatesUtil;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,8 +24,8 @@ public record Purchase(
                 customer,
                 bookPrice,
                 state,
-                StatesSalesTaxRatesUtil.map(state),
-                (1 + StatesSalesTaxRatesUtil.map(state)) * bookPrice,
+                SaleTaxRatesUtil.map(state),
+                (1 + SaleTaxRatesUtil.map(state)) * bookPrice,
                 ZonedDateTime.now().toString()
         );
     }
