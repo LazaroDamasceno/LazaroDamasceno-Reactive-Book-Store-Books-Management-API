@@ -7,31 +7,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BookRegistrationTest {
+public class BookUpdateTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
-    void testSuccessfulBookRegistration() {
+    void testSuccessfulBookUpdate() {
 
-        var registrationRequest = new NewBookRequestDto(
+        var updateRequest = new NewBookRequestDto(
                 "Harry Potter",
-                "",
+                "And the Philosopher's Stone",
                 "123456789012",
                 "J.K. Rowling",
                 "juvenile fantasy",
-                300,
+                336,
                 1,
-                120.0,
+                170.0,
                 "Penguin Inc.",
                 1997
         );
 
         webTestClient
-                .post()
+                .put()
                 .uri("api/v1/books")
-                .bodyValue(registrationRequest)
+                .bodyValue(updateRequest)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful();
@@ -39,25 +39,25 @@ public class BookRegistrationTest {
     }
 
     @Test
-    void testUnsuccessfulBookRegistration() {
+    void testUnsSuccessfulBookUpdate() {
 
-        var registrationRequest = new NewBookRequestDto(
+        var updateRequest = new NewBookRequestDto(
                 "Harry Potter",
-                "",
-                "123456789012",
+                "And the Philosopher's Stone",
+                "123456789011",
                 "J.K. Rowling",
                 "juvenile fantasy",
-                300,
+                336,
                 1,
-                120.0,
+                170.0,
                 "Penguin Inc.",
                 1997
         );
 
         webTestClient
-                .post()
+                .put()
                 .uri("api/v1/books")
-                .bodyValue(registrationRequest)
+                .bodyValue(updateRequest)
                 .exchange()
                 .expectStatus()
                 .is5xxServerError();
