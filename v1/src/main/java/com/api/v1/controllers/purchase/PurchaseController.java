@@ -29,7 +29,7 @@ public class PurchaseController {
     @DeleteMapping("{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<Void> deleteById(@PathVariable String id) {
-        return service.deleteById(id);
+        return deletionService.deleteById(id);
     }
 
     @DeleteMapping
