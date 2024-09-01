@@ -127,4 +127,27 @@ class CustomerTests {
 				.is5xxServerError();
 	}
 
+	@Test
+	void testSuccessfulCustomerDeletionBySsn() {
+		String ssn = "123456789";
+		webTestClient
+				.delete()
+				.uri("api/v1/customers/%s".formatted(ssn))
+				.exchange()
+				.expectStatus()
+				.is2xxSuccessful();
+
+	}
+
+	@Test
+	void testUnsuccessfulCustomerDeletionBySsn() {
+		String ssn = "123456789";
+		webTestClient
+				.delete()
+				.uri("api/v1/customers/%s".formatted(ssn))
+				.exchange()
+				.expectStatus()
+				.is5xxServerError();
+	}
+
 }
