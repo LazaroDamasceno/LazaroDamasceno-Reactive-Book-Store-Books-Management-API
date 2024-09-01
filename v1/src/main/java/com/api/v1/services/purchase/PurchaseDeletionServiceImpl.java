@@ -3,7 +3,7 @@ package com.api.v1.services.purchase;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.PurchaseRepository;
-import com.api.v1.exceptions.purchase.PurchaseWasNotFoundException;
+import com.api.v1.exceptions.purchase.PurchaseNotFoundException;
 import com.api.v1.utils.book.BookFinderUtil;
 import com.api.v1.utils.customer.CustomerFinderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
     public Mono<Void> deleteById(String id) {
         return repository
                 .findById(UUID.fromString(id))
-                .switchIfEmpty(Mono.error(PurchaseWasNotFoundException::new))
+                .switchIfEmpty(Mono.error(PurchaseNotFoundException::new))
                 .flatMap(purchase -> repository.delete(purchase));
     }
 
