@@ -26,19 +26,19 @@ public class PurchaseDeletionController {
         return service.deleteAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<Void> deleteByCustomer(@PathVariable String ssn) {
         return service.deleteByCustomer(ssn);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<Void> deleteByBook(@PathVariable String isbn) {
         return service.deleteByBook(isbn);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<Void> deleteByYear(@PathVariable int year) {
         return service.deleteByYear(year);
