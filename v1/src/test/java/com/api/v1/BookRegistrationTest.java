@@ -16,6 +16,7 @@ public class BookRegistrationTest {
         var registrationRequest = new NewBookRequestDto(
                 "Harry Potter",
                 "",
+                "1234567890",
                 "J.K. Rowling",
                 "juvenile fantasy",
                 300,
@@ -32,6 +33,31 @@ public class BookRegistrationTest {
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful();
+
+    }
+
+    void testUnsuccessfulBookRegistration() {
+
+        var registrationRequest = new NewBookRequestDto(
+                "Harry Potter",
+                "",
+                "1234567890",
+                "J.K. Rowling",
+                "juvenile fantasy",
+                300,
+                1,
+                120.0,
+                "Penguin Inc.",
+                1997
+        );
+
+        webTestClient
+                .post()
+                .uri("api/v1/books")
+                .bodyValue(registrationRequest)
+                .exchange()
+                .expectStatus()
+                .is5xxServerError();
 
     }
 
