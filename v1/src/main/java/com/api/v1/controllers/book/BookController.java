@@ -1,7 +1,11 @@
 package com.api.v1.controllers.book;
 
+import com.api.v1.dtos.requests.NewBookRequestDto;
 import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
+import com.api.v1.services.book.BookRegistrationService;
+import com.api.v1.services.book.BookUpdateService;
+import com.api.v1.services.book.BooksDeletionService;
 import com.api.v1.services.book.BooksRetrieveService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -13,21 +17,48 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/books")
-public class BooksRetrieveController {
+public class BookController {
 
     @Autowired
-    private BooksRetrieveService service;
+    private BookRegistrationService registrationService;
+
+    @Autowired
+    private BooksDeletionService deletionService;
+
+    @Autowired
+    private BooksRetrieveService retrieveService;
+
+    @Autowired
+    private BookUpdateService updateService;
+
+    @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Mono<BookResponseDto> register(@Valid @RequestBody NewBookRequestDto request) {
+        return registrationService.register(request);
+    }
+
+    @DeleteMapping()
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteAll() {
+        return deletionService.deleteAll();
+    }
+
+    @DeleteMapping("{isbn}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteByIsbn(@PathVariable String isbn) {
+        return deletionService.deleteByIsbn(isbn);
+    }
 
     @GetMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<BookResponseDto> retrieveByIsbn(@PathVariable String isbn) {
-        return service.retrieveByIsbn(isbn);
+        return retrieveService.retrieveByIsbn(isbn);
     }
 
     @GetMapping("")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
-        return service.retrieveAll(pagination);
+        return retrieveService.retrieveAll(pagination);
     }
 
     @GetMapping("by-author/{author}")
@@ -36,7 +67,7 @@ public class BooksRetrieveController {
             @NotBlank @PathVariable String author,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByAuthor(author, pagination);
+        return retrieveService.retrieveByAuthor(author, pagination);
     }
 
     @GetMapping("by-field/{field}")
@@ -45,7 +76,7 @@ public class BooksRetrieveController {
             @NotBlank @PathVariable String field,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByField(field, pagination);
+        return retrieveService.retrieveByField(field, pagination);
     }
 
     @GetMapping("by-year/{year}")
@@ -54,7 +85,7 @@ public class BooksRetrieveController {
             @PathVariable int year,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByYear(year, pagination);
+        return retrieveService.retrieveByYear(year, pagination);
     }
 
     @GetMapping("by-author/{author}/by-field/{field}/by-year/{year}")
@@ -65,7 +96,7 @@ public class BooksRetrieveController {
             @PathVariable int year,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByAuthorAndFieldAndYear(author, field, year, pagination);
+        return retrieveService.retrieveByAuthorAndFieldAndYear(author, field, year, pagination);
     }
 
     @GetMapping("by-author/{author}/by-field/{field}")
@@ -75,7 +106,7 @@ public class BooksRetrieveController {
             @NotBlank @PathVariable String field,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByAuthorAndField(author, field, pagination);
+        return retrieveService.retrieveByAuthorAndField(author, field, pagination);
     }
 
     @GetMapping("by-author/{author}/by-year/{year}")
@@ -85,7 +116,7 @@ public class BooksRetrieveController {
             @PathVariable int year,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByAuthorAndYear(author, year, pagination);
+        return retrieveService.retrieveByAuthorAndYear(author, year, pagination);
     }
 
     @GetMapping("by-field/{field}/by-year/{year}")
@@ -95,7 +126,13 @@ public class BooksRetrieveController {
             @PathVariable int year,
             @Valid @RequestBody PaginationRequestDto pagination
     ) {
-        return service.retrieveByFieldAndYear(field, year, pagination);
+        return retrieveService.retrieveByFieldAndYear(field, year, pagination);
+    }
+
+    @PutMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<BookResponseDto> update(@Valid @RequestBody NewBookRequestDto request) {
+        return updateService.update(request);
     }
 
 }
