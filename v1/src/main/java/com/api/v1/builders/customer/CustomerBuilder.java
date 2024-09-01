@@ -1,4 +1,4 @@
-package com.api.v1.builders;
+package com.api.v1.builders.customer;
 
 import java.time.LocalDate;
 

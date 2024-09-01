@@ -1,4 +1,4 @@
-package com.api.v1.builders;
+package com.api.v1.builders.book;
 
 import com.api.v1.domain.entities.Book;
 import com.api.v1.dtos.requests.NewBookRequestDto;

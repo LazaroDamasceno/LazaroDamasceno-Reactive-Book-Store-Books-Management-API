@@ -1,6 +1,6 @@
 package com.api.v1.services.book;
 
-import com.api.v1.builders.BookBuilder;
+import com.api.v1.builders.book.BookBuilder;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.repositories.BookRepository;
 import com.api.v1.dtos.requests.NewBookRequestDto;

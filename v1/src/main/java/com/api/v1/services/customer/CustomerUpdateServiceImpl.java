@@ -1,6 +1,6 @@
 package com.api.v1.services.customer;
 
-import com.api.v1.builders.CustomerBuilder;
+import com.api.v1.builders.customer.CustomerBuilder;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.CustomerRepository;
 import com.api.v1.dtos.requests.NewCustomerRequestDto;
