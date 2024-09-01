@@ -90,7 +90,7 @@ class CustomerTests {
 				"Leo",
 				"",
 				"Santos Jr",
-				"123456789",
+				"123456788",
 				LocalDate.parse("2000-12-12"),
 				"jr@leosantos.com",
 				"St. Dennis, Paris, Europe",
@@ -125,7 +125,6 @@ class CustomerTests {
 				.exchange()
 				.expectStatus()
 				.is5xxServerError();
-
 	}
 
 }
