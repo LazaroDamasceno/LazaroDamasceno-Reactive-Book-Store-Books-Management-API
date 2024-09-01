@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 public record NewBookRequestDto(
         @NotBlank String title,
         String subtitle,
+        String isbn,
         @NotBlank String author,
         @NotBlank String field,
         int numberOfPages,

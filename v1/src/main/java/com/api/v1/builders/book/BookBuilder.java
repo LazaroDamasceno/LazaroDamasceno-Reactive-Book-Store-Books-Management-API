@@ -2,7 +2,7 @@ package com.api.v1.builders.book;
 
 import com.api.v1.domain.entities.Book;
 import com.api.v1.dtos.requests.NewBookRequestDto;
-import com.api.v1.utils.book.IsbnGeneratorUtil;
+
 public class BookBuilder {
 
     private String isbn;
@@ -23,7 +23,7 @@ public class BookBuilder {
     }
 
     public BookBuilder fromDto(NewBookRequestDto request) {
-        this.isbn = IsbnGeneratorUtil.generate();
+        this.isbn = request.isbn();
         this.title = request.title();
         this.subtitle = request.subtitle();
         this.author = request.author();
