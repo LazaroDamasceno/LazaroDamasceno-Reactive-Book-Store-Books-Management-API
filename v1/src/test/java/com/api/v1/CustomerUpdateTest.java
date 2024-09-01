@@ -9,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.LocalDate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerUpdateService {
+class CustomerUpdateTest {
     
     @Autowired
     private WebTestClient webTestClient;
