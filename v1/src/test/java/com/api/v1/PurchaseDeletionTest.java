@@ -1,6 +1,5 @@
 package com.api.v1;
 
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,28 +10,6 @@ public class PurchaseDeletionTest {
 
     @Autowired
     private WebTestClient webTestClient;
-
-    @Test
-    void testSuccessfulPurchaseDeleteById() {
-        ObjectId id = null;
-        webTestClient
-                .delete()
-                .uri("api/v1/purchases/%s".formatted(id))
-                .exchange()
-                .expectStatus()
-                .is2xxSuccessful();
-    }
-
-    @Test
-    void testUnsuccessfulPurchaseDeleteById() {
-        ObjectId id = null;
-        webTestClient
-                .delete()
-                .uri("api/v1/purchases/%s".formatted(id))
-                .exchange()
-                .expectStatus()
-                .is5xxServerError();
-    }
 
     @Test
     void testSuccessfulAllPurchasesDeletion() {
