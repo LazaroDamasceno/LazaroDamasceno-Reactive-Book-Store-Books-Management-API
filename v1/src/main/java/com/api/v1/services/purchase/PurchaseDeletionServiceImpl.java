@@ -7,13 +7,11 @@ import com.api.v1.exceptions.purchase.PurchaseDataDeletionException;
 import com.api.v1.exceptions.purchase.PurchaseNotFoundException;
 import com.api.v1.utils.book.BookFinderUtil;
 import com.api.v1.utils.customer.CustomerFinderUtil;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.Mono;
-
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Service
 class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
@@ -30,7 +28,7 @@ class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
     @Override
     public Mono<Void> deleteById(String id) {
         return repository
-                .findById(UUID.fromString(id))
+                .findById(new ObjectId(id))
                 .switchIfEmpty(Mono.error(PurchaseNotFoundException::new))
                 .flatMap(purchase -> repository.delete(purchase));
     }
