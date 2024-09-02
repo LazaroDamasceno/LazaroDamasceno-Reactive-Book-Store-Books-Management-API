@@ -6,11 +6,16 @@ import com.api.v1.services.book.BookRegistrationService;
 import com.api.v1.services.book.BookUpdateService;
 import com.api.v1.services.book.BooksDeletionService;
 import com.api.v1.services.book.BooksRetrieveService;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import com.api.v1.annotations.ISBN;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -44,13 +49,13 @@ public class BookController {
 
     @DeleteMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteByIsbn(@PathVariable String isbn) {
+    public Mono<Void> deleteByIsbn(@PathVariable @ISBN String isbn) {
         return deletionService.deleteByIsbn(isbn);
     }
 
     @GetMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<BookResponseDto> retrieveByIsbn(@PathVariable String isbn) {
+    public Mono<BookResponseDto> retrieveByIsbn(@PathVariable @ISBN String isbn) {
         return retrieveService.retrieveByIsbn(isbn);
     }
 

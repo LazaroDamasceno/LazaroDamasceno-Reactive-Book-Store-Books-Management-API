@@ -1,14 +1,12 @@
 package com.api.v1.services.customer;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.api.v1.annotations.SSN;
 import com.api.v1.domain.repositories.CustomerRepository;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.mappers.customer.CustomerResponseMapper;
 import com.api.v1.utils.customer.CustomerFinderUtil;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,7 +28,7 @@ class CustomersRetrieveServiceImpl implements CustomersRetrieveService {
     }
 
     @Override
-    public Mono<CustomerResponseDto> retrieveBySsn(String ssn) {
+    public Mono<CustomerResponseDto> retrieveBySsn(@SSN String ssn) {
         return customerFinderUtil
             .find(ssn)
             .flatMap(customer -> Mono.just(CustomerResponseMapper.map(customer)));

@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Document(collection = "v1_books")
 public class Book {

@@ -4,9 +4,14 @@ import com.api.v1.domain.repositories.BookRepository;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.mappers.book.BookResponseMapper;
 import com.api.v1.utils.book.BookFinderUtil;
+
 import jakarta.validation.constraints.NotBlank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.api.v1.annotations.ISBN;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -20,7 +25,7 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     private BookRepository repository;
     
     @Override
-    public Mono<BookResponseDto> retrieveByIsbn(String isbn) {
+    public Mono<BookResponseDto> retrieveByIsbn(@ISBN String isbn) {
         return bookFinderUtil
                 .find(isbn)
                 .flatMap(book -> Mono.just(BookResponseMapper.map(book)));

@@ -7,12 +7,17 @@ import com.api.v1.dtos.responses.PurchaseResponseDto;
 import com.api.v1.mappers.purchase.PurchaseResponseMapper;
 import com.api.v1.utils.book.BookFinderUtil;
 import com.api.v1.utils.customer.CustomerFinderUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.ZonedDateTime;
+
+import com.api.v1.annotations.ISBN;
+import com.api.v1.annotations.SSN;
 
 @Service
 class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
@@ -34,7 +39,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByBook(String isbn) {
+    public Flux<PurchaseResponseDto> retrieveByBook(@ISBN String isbn) {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository
@@ -46,7 +51,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByCustomer(String ssn) {
+    public Flux<PurchaseResponseDto> retrieveByCustomer(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(customer -> repository
@@ -66,8 +71,8 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
 
     @Override
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomerAndYear(
-            String isbn,
-            String ssn,
+            @ISBN String isbn,
+            @SSN String ssn,
             int year
     ) {
         Mono<Book> bookMono = bookFinderUtil.find(isbn);
@@ -85,7 +90,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(String isbn, String ssn) {
+    public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(@ISBN String isbn, @SSN String ssn) {
         Mono<Book> bookMono = bookFinderUtil.find(isbn);
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
         return bookMono
@@ -101,7 +106,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
 
     @Override
     public Flux<PurchaseResponseDto> retrieveByBookAndYear(
-            String isbn,
+            @ISBN String isbn,
             int year
     ) {
         return bookFinderUtil
@@ -117,7 +122,7 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
 
     @Override
     public Flux<PurchaseResponseDto> retrieveByCustomerAndYear(
-            String ssn,
+            @SSN String ssn,
             int year
     ) {
         return customerFinderUtil

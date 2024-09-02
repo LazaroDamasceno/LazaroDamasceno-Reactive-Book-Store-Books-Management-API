@@ -3,8 +3,12 @@ package com.api.v1.services.customer;
 import com.api.v1.domain.repositories.CustomerRepository;
 import com.api.v1.exceptions.customer.CustomerDataDeletionException;
 import com.api.v1.utils.customer.CustomerFinderUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.api.v1.annotations.SSN;
+
 import reactor.core.publisher.Mono;
 
 @Service
@@ -28,7 +32,7 @@ class CustomersDeletionServiceImpl implements CustomersDeletionService {
     }
 
     @Override
-    public Mono<Void> deleteBySsn(String ssn) {
+    public Mono<Void> deleteBySsn(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMap(customer -> repository.delete(customer));

@@ -5,10 +5,15 @@ import com.api.v1.dtos.responses.PurchaseResponseDto;
 import com.api.v1.services.purchase.PurchaseDeletionService;
 import com.api.v1.services.purchase.PurchaseRegistrationService;
 import com.api.v1.services.purchase.PurchaseRetrieveService;
+
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import com.api.v1.annotations.ISBN;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -39,7 +44,7 @@ public class PurchaseController {
 
     @DeleteMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Void> deleteByBook(@PathVariable String isbn) {
+    public Mono<Void> deleteByBook(@PathVariable @ISBN String isbn) {
         return deletionService.deleteByBook(isbn);
     }
 
@@ -53,7 +58,7 @@ public class PurchaseController {
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<Void> deleteByCustomerAndBookAndYear(
             @PathVariable String ssn,
-            @PathVariable String isbn,
+            @PathVariable @ISBN String isbn,
             @PathVariable int year
     ) {
         return deletionService.deleteByCustomerAndBookAndYear(ssn, isbn, year);
@@ -61,7 +66,7 @@ public class PurchaseController {
 
     @DeleteMapping("{ssn}/{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Void> deleteByCustomerAndBook(@PathVariable String ssn, @PathVariable String isbn) {
+    public Mono<Void> deleteByCustomerAndBook(@PathVariable String ssn, @PathVariable @ISBN String isbn) {
         return deletionService.deleteByCustomerAndBook(ssn, isbn);
     }
 
@@ -73,7 +78,7 @@ public class PurchaseController {
 
     @DeleteMapping("{isbn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Void> deleteByBookAndYear(@PathVariable String isbn, @PathVariable int year) {
+    public Mono<Void> deleteByBookAndYear(@PathVariable @ISBN String isbn, @PathVariable int year) {
         return deletionService.deleteByBookAndYear(isbn, year);
     }
 
@@ -91,7 +96,7 @@ public class PurchaseController {
 
     @GetMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PurchaseResponseDto> retrieveByBook(@PathVariable String isbn) {
+    public Flux<PurchaseResponseDto> retrieveByBook(@PathVariable @ISBN String isbn) {
         return retrieveService.retrieveByBook(isbn);
     }
 
@@ -110,7 +115,7 @@ public class PurchaseController {
     @GetMapping("{isbn}/{ssn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomerAndYear(
-            @PathVariable String isbn,
+            @PathVariable @ISBN String isbn,
             @PathVariable String ssn,
             @PathVariable int year
     ) {
@@ -120,7 +125,7 @@ public class PurchaseController {
     @GetMapping("{isbn}/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(
-            @PathVariable String isbn,
+            @PathVariable @ISBN String isbn,
             @PathVariable String ssn
     ) {
         return retrieveService.retrieveByBookAndCustomer(isbn, ssn);
@@ -129,7 +134,7 @@ public class PurchaseController {
     @GetMapping("{isbn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByBookAndYear(
-            @PathVariable String isbn,
+            @PathVariable @ISBN String isbn,
             @PathVariable int year
     ) {
         return retrieveService.retrieveByBookAndYear(isbn, year);
