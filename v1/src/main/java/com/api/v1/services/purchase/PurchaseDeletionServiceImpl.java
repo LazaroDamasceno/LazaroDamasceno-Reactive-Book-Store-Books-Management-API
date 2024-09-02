@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 @Service
 class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
@@ -24,14 +25,6 @@ class PurchaseDeletionServiceImpl implements PurchaseDeletionService {
 
     @Autowired
     private CustomerFinderUtil customerFinderUtil;
-
-    @Override
-    public Mono<Void> deleteById(String id) {
-        return repository
-                .findById(new ObjectId(id))
-                .switchIfEmpty(Mono.error(PurchaseNotFoundException::new))
-                .flatMap(purchase -> repository.delete(purchase));
-    }
 
     @Override
     public Mono<Void> deleteAll() {

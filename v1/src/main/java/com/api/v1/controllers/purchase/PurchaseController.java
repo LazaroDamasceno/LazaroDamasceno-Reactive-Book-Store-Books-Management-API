@@ -26,12 +26,6 @@ public class PurchaseController {
     @Autowired
     private PurchaseRetrieveService retrieveService;
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Void> deleteById(@PathVariable String id) {
-        return deletionService.deleteById(id);
-    }
-
     @DeleteMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<Void> deleteAll() {
