@@ -34,4 +34,79 @@ class BooksDeletionServiceImpl implements BooksDeletionService {
                 .flatMap(book -> repository.delete(book));
     }
 
+    @Override
+    public Mono<Void> deleteByAuthor(String author) {
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(BookDataDeletionException::new);
+                    return repository
+                            .findAll()
+                            .filter(e -> e.getAuthor().equals(author))
+                            .flatMap(book -> repository.delete(book))
+                            .then();
+                });
+    }
+
+    @Override
+    public Mono<Void> deleteByField(String field) {
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(BookDataDeletionException::new);
+                    return repository
+                            .findAll()
+                            .filter(e -> e.getField().equals(field))
+                            .flatMap(book -> repository.delete(book))
+                            .then();
+                });
+    }
+
+    @Override
+    public Mono<Void> deleteByYear(int year) {
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(BookDataDeletionException::new);
+                    return repository
+                            .findAll()
+                            .filter(e -> e.getPublishingYear() == year)
+                            .flatMap(book -> repository.delete(book))
+                            .then();
+                });
+    }
+
+    @Override
+    public Mono<Void> deleteByVersion(int version) {
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(BookDataDeletionException::new);
+                    return repository
+                            .findAll()
+                            .filter(e -> e.getVersion() == version)
+                            .flatMap(book -> repository.delete(book))
+                            .then();
+                });
+    }
+
+    @Override
+    public Mono<Void> deleteByPublisher(String publisher) {
+        return repository
+                .findAll()
+                .hasElements()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(BookDataDeletionException::new);
+                    return repository
+                            .findAll()
+                            .filter(e -> e.getPublisher().equals(publisher))
+                            .flatMap(book -> repository.delete(book))
+                            .then();
+                });
+    }
+
 }

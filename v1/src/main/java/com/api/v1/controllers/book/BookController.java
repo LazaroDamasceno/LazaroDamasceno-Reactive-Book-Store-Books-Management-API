@@ -3,6 +3,7 @@ package com.api.v1.controllers.book;
 import com.api.v1.dtos.requests.NewBookRequestDto;
 import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
+import com.api.v1.exceptions.book.BookDataDeletionException;
 import com.api.v1.services.book.BookRegistrationService;
 import com.api.v1.services.book.BookUpdateService;
 import com.api.v1.services.book.BooksDeletionService;
@@ -55,13 +56,13 @@ public class BookController {
         return retrieveService.retrieveByIsbn(isbn);
     }
 
-    @GetMapping("")
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
         return retrieveService.retrieveAll(pagination);
     }
 
-    @GetMapping("by-author/{author}")
+    @GetMapping("{author}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthor(
             @NotBlank @PathVariable String author,
@@ -70,7 +71,7 @@ public class BookController {
         return retrieveService.retrieveByAuthor(author, pagination);
     }
 
-    @GetMapping("by-field/{field}")
+    @GetMapping("{field}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByField(
             @NotBlank @PathVariable String field,
@@ -79,7 +80,7 @@ public class BookController {
         return retrieveService.retrieveByField(field, pagination);
     }
 
-    @GetMapping("by-year/{year}")
+    @GetMapping("{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByYear(
             @PathVariable int year,
@@ -88,7 +89,7 @@ public class BookController {
         return retrieveService.retrieveByYear(year, pagination);
     }
 
-    @GetMapping("by-author/{author}/by-field/{field}/by-year/{year}")
+    @GetMapping("{author}/{field}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthorAndFieldAndYear(
             @NotBlank @PathVariable String author,
@@ -99,7 +100,7 @@ public class BookController {
         return retrieveService.retrieveByAuthorAndFieldAndYear(author, field, year, pagination);
     }
 
-    @GetMapping("by-author/{author}/by-field/{field}")
+    @GetMapping("{author}/{field}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthorAndField(
             @NotBlank @PathVariable String author,
@@ -109,7 +110,7 @@ public class BookController {
         return retrieveService.retrieveByAuthorAndField(author, field, pagination);
     }
 
-    @GetMapping("by-author/{author}/by-year/{year}")
+    @GetMapping("{author}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthorAndYear(
             @NotBlank @PathVariable String author,
@@ -119,7 +120,7 @@ public class BookController {
         return retrieveService.retrieveByAuthorAndYear(author, year, pagination);
     }
 
-    @GetMapping("by-field/{field}/by-year/{year}")
+    @GetMapping("{field}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByFieldAndYear(
             @PathVariable @NotBlank String field,
@@ -133,6 +134,36 @@ public class BookController {
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<BookResponseDto> update(@Valid @RequestBody NewBookRequestDto request) {
         return updateService.update(request);
+    }
+
+    @DeleteMapping("{author}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByAuthor(String author) {
+        return deletionService.deleteByAuthor(author);
+    }
+
+    @DeleteMapping("{field}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByField(String field) {
+        return deletionService.deleteByField(field);
+    }
+
+    @DeleteMapping("{year}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByYear(int year) {
+        return deletionService.deleteByYear(year);
+    }
+
+    @DeleteMapping("{version}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByVersion(int version) {
+        return deletionService.deleteByVersion(version);
+    }
+
+    @DeleteMapping("{publisher}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Mono<Void> deleteByPublisher(String publisher) {
+        return deletionService.deleteByPublisher(publisher);
     }
 
 }
