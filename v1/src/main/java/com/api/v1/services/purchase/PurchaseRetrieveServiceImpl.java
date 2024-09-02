@@ -3,13 +3,10 @@ package com.api.v1.services.purchase;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.PurchaseRepository;
-import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.PurchaseResponseDto;
 import com.api.v1.mappers.purchase.PurchaseResponseMapper;
 import com.api.v1.utils.book.BookFinderUtil;
 import com.api.v1.utils.customer.CustomerFinderUtil;
-import com.api.v1.utils.pageable.PageableUtil;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -30,18 +27,18 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     private CustomerFinderUtil customerFinderUtil;
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveAll(@Valid PaginationRequestDto pagination) {
+    public Flux<PurchaseResponseDto> retrieveAll() {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)));
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByBook(String isbn, @Valid PaginationRequestDto pagination) {
+    public Flux<PurchaseResponseDto> retrieveByBook(String isbn) {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository
-                                        .findBy(PageableUtil.get(pagination))
+                                        .findAll()
                                         .filter(e -> e.book().equals(book))
                                         .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)))
                 );
@@ -49,20 +46,20 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByCustomer(String ssn, @Valid PaginationRequestDto pagination) {
+    public Flux<PurchaseResponseDto> retrieveByCustomer(String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(customer -> repository
-                                            .findBy(PageableUtil.get(pagination))
+                                            .findAll()
                                             .filter(e -> e.customer().equals(customer))
                                             .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)))
                 );
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByYear(int year, @Valid PaginationRequestDto pagination) {
+    public Flux<PurchaseResponseDto> retrieveByYear(int year) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> ZonedDateTime.parse(e.createdAt()).getYear() == year)
                 .flatMap(purchase -> Flux.just(PurchaseResponseMapper.map(purchase)));
     }
@@ -71,15 +68,14 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomerAndYear(
             String isbn,
             String ssn,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         Mono<Book> bookMono = bookFinderUtil.find(isbn);
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
         return bookMono
                 .zipWith(customerMono)
                 .flatMapMany(tuple -> repository
-                            .findBy(PageableUtil.get(pagination))
+                            .findAll()
                             .filter(e -> e.book().equals(tuple.getT1())
                                     && e.customer().equals(tuple.getT2())
                                     && ZonedDateTime.parse(e.createdAt()).getYear() == year
@@ -89,17 +85,13 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     }
 
     @Override
-    public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(
-            String isbn,
-            String ssn,
-            @Valid PaginationRequestDto pagination
-    ) {
+    public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(String isbn, String ssn) {
         Mono<Book> bookMono = bookFinderUtil.find(isbn);
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
         return bookMono
                 .zipWith(customerMono)
                 .flatMapMany(tuple -> repository
-                        .findBy(PageableUtil.get(pagination))
+                        .findAll()
                         .filter(e -> e.book().equals(tuple.getT1())
                                 && e.customer().equals(tuple.getT2())
                         )
@@ -110,13 +102,12 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     @Override
     public Flux<PurchaseResponseDto> retrieveByBookAndYear(
             String isbn,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         return bookFinderUtil
                 .find(isbn)
                 .flatMapMany(book -> repository
-                        .findBy(PageableUtil.get(pagination))
+                        .findAll()
                         .filter(e -> e.book().equals(book)
                                 && ZonedDateTime.parse(e.createdAt()).getYear() == year
                         )
@@ -127,13 +118,12 @@ class PurchaseRetrieveServiceImpl implements PurchaseRetrieveService {
     @Override
     public Flux<PurchaseResponseDto> retrieveByCustomerAndYear(
             String ssn,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(customer -> repository
-                        .findBy(PageableUtil.get(pagination))
+                        .findAll()
                         .filter(e -> e.customer().equals(customer)
                                 && ZonedDateTime.parse(e.createdAt()).getYear() == year
                         )

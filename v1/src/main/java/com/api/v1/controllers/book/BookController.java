@@ -1,9 +1,7 @@
 package com.api.v1.controllers.book;
 
 import com.api.v1.dtos.requests.NewBookRequestDto;
-import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
-import com.api.v1.exceptions.book.BookDataDeletionException;
 import com.api.v1.services.book.BookRegistrationService;
 import com.api.v1.services.book.BookUpdateService;
 import com.api.v1.services.book.BooksDeletionService;
@@ -58,35 +56,26 @@ public class BookController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<BookResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
-        return retrieveService.retrieveAll(pagination);
+    public Flux<BookResponseDto> retrieveAll() {
+        return retrieveService.retrieveAll();
     }
 
     @GetMapping("{author}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<BookResponseDto> retrieveByAuthor(
-            @NotBlank @PathVariable String author,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByAuthor(author, pagination);
+    public Flux<BookResponseDto> retrieveByAuthor(@NotBlank @PathVariable String author) {
+        return retrieveService.retrieveByAuthor(author);
     }
 
     @GetMapping("{field}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<BookResponseDto> retrieveByField(
-            @NotBlank @PathVariable String field,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByField(field, pagination);
+    public Flux<BookResponseDto> retrieveByField(@NotBlank @PathVariable String field) {
+        return retrieveService.retrieveByField(field);
     }
 
     @GetMapping("{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<BookResponseDto> retrieveByYear(
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByYear(year, pagination);
+    public Flux<BookResponseDto> retrieveByYear(@PathVariable int year) {
+        return retrieveService.retrieveByYear(year);
     }
 
     @GetMapping("{author}/{field}/{year}")
@@ -94,40 +83,36 @@ public class BookController {
     public Flux<BookResponseDto> retrieveByAuthorAndFieldAndYear(
             @NotBlank @PathVariable String author,
             @NotBlank @PathVariable String field,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByAuthorAndFieldAndYear(author, field, year, pagination);
+        return retrieveService.retrieveByAuthorAndFieldAndYear(author, field, year);
     }
 
     @GetMapping("{author}/{field}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthorAndField(
             @NotBlank @PathVariable String author,
-            @NotBlank @PathVariable String field,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @NotBlank @PathVariable String field
     ) {
-        return retrieveService.retrieveByAuthorAndField(author, field, pagination);
+        return retrieveService.retrieveByAuthorAndField(author, field);
     }
 
     @GetMapping("{author}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByAuthorAndYear(
             @NotBlank @PathVariable String author,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByAuthorAndYear(author, year, pagination);
+        return retrieveService.retrieveByAuthorAndYear(author, year);
     }
 
     @GetMapping("{field}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<BookResponseDto> retrieveByFieldAndYear(
             @PathVariable @NotBlank String field,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByFieldAndYear(field, year, pagination);
+        return retrieveService.retrieveByFieldAndYear(field, year);
     }
 
     @PutMapping

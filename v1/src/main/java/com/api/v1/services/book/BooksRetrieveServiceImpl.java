@@ -1,12 +1,9 @@
 package com.api.v1.services.book;
 
 import com.api.v1.domain.repositories.BookRepository;
-import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.mappers.book.BookResponseMapper;
 import com.api.v1.utils.book.BookFinderUtil;
-import com.api.v1.utils.pageable.PageableUtil;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,32 +27,32 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveAll(@Valid PaginationRequestDto pagination) {
+    public Flux<BookResponseDto> retrieveAll() {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .flatMap(book -> Flux.just(BookResponseMapper.map(book)));
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByAuthor(@NotBlank String author, @Valid PaginationRequestDto pagination) {
+    public Flux<BookResponseDto> retrieveByAuthor(@NotBlank String author) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getAuthor().equals(author))
                 .flatMap(book -> Flux.just(BookResponseMapper.map(book)));
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByField(@NotBlank String field, @Valid PaginationRequestDto pagination) {
+    public Flux<BookResponseDto> retrieveByField(@NotBlank String field) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getField().equals(field))
                 .flatMap(book -> Flux.just(BookResponseMapper.map(book)));
     }
 
     @Override
-    public Flux<BookResponseDto> retrieveByYear(int year, @Valid PaginationRequestDto pagination) {
+    public Flux<BookResponseDto> retrieveByYear(int year) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getPublishingYear() == year)
                 .flatMap(book -> Flux.just(BookResponseMapper.map(book)));
     }
@@ -64,11 +61,10 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     public Flux<BookResponseDto> retrieveByAuthorAndFieldAndYear(
             @NotBlank String author,
             @NotBlank String field,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getAuthor().equals(author)
                         && e.getField().equals(field)
                         && e.getPublishingYear() == year
@@ -79,11 +75,10 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     @Override
     public Flux<BookResponseDto> retrieveByAuthorAndField(
             @NotBlank String author,
-            @NotBlank String field,
-            @Valid PaginationRequestDto pagination
+            @NotBlank String field
     ) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getAuthor().equals(author)
                         && e.getField().equals(field)
                 )
@@ -93,11 +88,10 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     @Override
     public Flux<BookResponseDto> retrieveByAuthorAndYear(
             @NotBlank String author,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getAuthor().equals(author)
                         && e.getPublishingYear() == year
                 )
@@ -107,11 +101,10 @@ class BooksRetrieveServiceImpl implements BooksRetrieveService {
     @Override
     public Flux<BookResponseDto> retrieveByFieldAndYear(
             @NotBlank String field,
-            int year,
-            @Valid PaginationRequestDto pagination
+            int year
     ) {
         return repository
-                .findBy(PageableUtil.get(pagination))
+                .findAll()
                 .filter(e -> e.getField().equals(field)
                         && e.getPublishingYear() == year
                 )

@@ -1,7 +1,6 @@
 package com.api.v1.controllers.purchase;
 
 import com.api.v1.domain.entities.Purchase;
-import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.PurchaseResponseDto;
 import com.api.v1.services.purchase.PurchaseDeletionService;
 import com.api.v1.services.purchase.PurchaseRegistrationService;
@@ -86,35 +85,26 @@ public class PurchaseController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PurchaseResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
-        return retrieveService.retrieveAll(pagination);
+    public Flux<PurchaseResponseDto> retrieveAll() {
+        return retrieveService.retrieveAll();
     }
 
     @GetMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PurchaseResponseDto> retrieveByBook(
-            @PathVariable String isbn,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByBook(isbn, pagination);
+    public Flux<PurchaseResponseDto> retrieveByBook(@PathVariable String isbn) {
+        return retrieveService.retrieveByBook(isbn);
     }
 
     @GetMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PurchaseResponseDto> retrieveByCustomer(
-            @PathVariable String ssn,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByCustomer(ssn, pagination);
+    public Flux<PurchaseResponseDto> retrieveByCustomer(@PathVariable String ssn) {
+        return retrieveService.retrieveByCustomer(ssn);
     }
 
     @GetMapping("{year}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PurchaseResponseDto> retrieveByYear(
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
-    ) {
-        return retrieveService.retrieveByYear(year, pagination);
+    public Flux<PurchaseResponseDto> retrieveByYear(@PathVariable int year) {
+        return retrieveService.retrieveByYear(year);
     }
 
     @GetMapping("{isbn}/{ssn}/{year}")
@@ -122,40 +112,36 @@ public class PurchaseController {
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomerAndYear(
             @PathVariable String isbn,
             @PathVariable String ssn,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByBookAndCustomerAndYear(isbn, ssn, year, pagination);
+        return retrieveService.retrieveByBookAndCustomerAndYear(isbn, ssn, year);
     }
 
     @GetMapping("{isbn}/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByBookAndCustomer(
             @PathVariable String isbn,
-            @PathVariable String ssn,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable String ssn
     ) {
-        return retrieveService.retrieveByBookAndCustomer(isbn, ssn, pagination);
+        return retrieveService.retrieveByBookAndCustomer(isbn, ssn);
     }
 
     @GetMapping("{isbn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByBookAndYear(
             @PathVariable String isbn,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByBookAndYear(isbn, year, pagination);
+        return retrieveService.retrieveByBookAndYear(isbn, year);
     }
 
     @GetMapping("{ssn}/{year}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<PurchaseResponseDto> retrieveByCustomerAndYear(
             @PathVariable String ssn,
-            @PathVariable int year,
-            @Valid @RequestBody PaginationRequestDto pagination
+            @PathVariable int year
     ) {
-        return retrieveService.retrieveByCustomerAndYear(ssn,  year, pagination);
+        return retrieveService.retrieveByCustomerAndYear(ssn,  year);
     }
 
 }

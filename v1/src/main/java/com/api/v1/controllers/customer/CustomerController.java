@@ -1,7 +1,6 @@
 package com.api.v1.controllers.customer;
 
 import com.api.v1.dtos.requests.NewCustomerRequestDto;
-import com.api.v1.dtos.requests.PaginationRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.services.customer.CustomerRegistrationService;
 import com.api.v1.services.customer.CustomerUpdateService;
@@ -48,8 +47,8 @@ public class CustomerController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<CustomerResponseDto> retrieveAll(@Valid @RequestBody PaginationRequestDto pagination) {
-        return retrieveService.retrieveAll(pagination);
+    public Flux<CustomerResponseDto> retrieveAll() {
+        return retrieveService.retrieveAll();
     }
 
     @GetMapping("{ssn}")
