@@ -1,6 +1,5 @@
 package com.api.v1.domain.entities;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,9 +8,6 @@ import java.util.UUID;
 
 @Document(collection = "v1_books")
 public class Book {
-
-    @Id
-    private UUID id = UUID.randomUUID();
 
     @Field
     private String createdAt = ZonedDateTime.now().toString();
@@ -80,10 +76,6 @@ public class Book {
     public String getFullTitle() {
         if (subtitle.isEmpty()) return title;
         return String.format("%s: %s", title, subtitle);
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getCreatedAt() {

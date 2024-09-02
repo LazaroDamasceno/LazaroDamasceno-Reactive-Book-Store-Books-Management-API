@@ -4,15 +4,11 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "v1_customers")
 public class Customer {
-
-    @Id
-    private UUID id;
 
     @Field
     private String createdAt;
@@ -58,7 +54,6 @@ public class Customer {
         String phoneNumber, 
         String gender
     ) {
-        this.id = UUID.randomUUID();
         this.createdAt = ZonedDateTime.now().toString();
         this.firstName = firstName;
         this.middleName = middleName;
@@ -78,10 +73,6 @@ public class Customer {
 
     public void archive() {
         this.archivedAt = ZonedDateTime.now().toString();
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getCreatedAt() {
