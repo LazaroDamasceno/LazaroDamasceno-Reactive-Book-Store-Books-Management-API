@@ -28,7 +28,7 @@ public class PurchaseRegistrationTest {
 
         Book book = bookFinderUtil.find("123456789012").block();
         Customer customer = customerFinderUtil.find("123456789").block();
-        Purchase purchase = new Purchase(book, customer, 100.0, "California");
+        Purchase purchase = new Purchase(book, customer, "California");
 
         webTestClient
                 .post()
