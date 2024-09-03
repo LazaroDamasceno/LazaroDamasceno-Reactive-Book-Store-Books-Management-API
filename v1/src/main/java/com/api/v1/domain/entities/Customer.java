@@ -3,11 +3,19 @@ package com.api.v1.domain.entities;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
+import lombok.Getter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "v1_customers")
+@Getter
 public class Customer {
+
+    @Id
+    private ObjectId id = new ObjectId();
 
     @Field
     private String createdAt;
@@ -65,57 +73,28 @@ public class Customer {
         this.gender = gender;
     }
 
+    public Customer update(CustomerRegistrationRequestDto request) {
+        this.id = new ObjectId();
+        this.firstName = request.firstName();
+        this.middleName = request.middleName();
+        this.lastName = request.lastName();
+        this.ssn = request.ssn();
+        this.birthDate = request.birthDate();
+        this.email = request.email();
+        this.address = request.address();
+        this.phoneNumber = request.phoneNumber();
+        this.gender = request.gender();
+        this.archivedAt = null;
+        return this;
+    }
+
     public String getFullName() {
         if (middleName.isEmpty()) return String.format("%s %s", firstName, lastName);
         return String.format("%s %s %s", firstName, middleName, lastName);
     }
 
-    public void archive() {
+    public void inactive() {
         this.archivedAt = ZonedDateTime.now().toString();
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getArchivedAt() {
-        return archivedAt;
     }
 
 }

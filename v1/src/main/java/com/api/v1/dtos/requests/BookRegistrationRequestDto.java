@@ -5,7 +5,7 @@ import com.api.v1.annotations.ISBN;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
-public record NewBookRequestDto(
+public record BookRegistrationRequestDto(
         @NotBlank String title,
         String subtitle,
         @ISBN String isbn,

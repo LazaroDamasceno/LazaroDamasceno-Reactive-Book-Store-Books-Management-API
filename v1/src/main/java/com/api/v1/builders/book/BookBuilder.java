@@ -1,7 +1,7 @@
 package com.api.v1.builders.book;
 
 import com.api.v1.domain.entities.Book;
-import com.api.v1.dtos.requests.NewBookRequestDto;
+import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 
 public class BookBuilder {
 
@@ -22,7 +22,7 @@ public class BookBuilder {
         return new BookBuilder();
     }
 
-    public BookBuilder fromDto(NewBookRequestDto request) {
+    public BookBuilder fromDto(BookRegistrationRequestDto request) {
         this.isbn = request.isbn();
         this.title = request.title();
         this.subtitle = request.subtitle();

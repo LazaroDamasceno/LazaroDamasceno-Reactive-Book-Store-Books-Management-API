@@ -3,7 +3,7 @@ package com.api.v1.services.book;
 import com.api.v1.builders.book.BookBuilder;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.repositories.BookRepository;
-import com.api.v1.dtos.requests.NewBookRequestDto;
+import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.mappers.book.BookResponseMapper;
 import com.api.v1.utils.book.BookFinderUtil;
@@ -22,19 +22,19 @@ class BookUpdateServiceImpl implements BookUpdateService {
     private BookRepository repository;
 
     @Override
-    public Mono<BookResponseDto> update(@Valid NewBookRequestDto request) {
+    public Mono<BookResponseDto> update(@Valid BookRegistrationRequestDto request) {
         return bookFinderUtil
                 .find(request.isbn())
                 .flatMap(existingBook -> {
-                    existingBook.archive();
+                    existingBook.inactive();
                     return repository.save(existingBook);
                 })
-                .then(Mono.defer(() -> {
-                    Book updatedBook = BookBuilder.create().fromDto(request).build();
+                .flatMap(inactiveCustomer -> {
+                    Book updateBook = inactiveCustomer.update(request);
                     return repository
-                            .save(updatedBook)
-                            .flatMap(updateBook -> Mono.just(BookResponseMapper.map(updateBook)));
-                }));
+                            .save(updateBook)
+                            .flatMap(book -> Mono.just(BookResponseMapper.map(book)));
+                });
     }
 
 }

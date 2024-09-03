@@ -3,7 +3,7 @@ package com.api.v1.builders.customer;
 import java.time.LocalDate;
 
 import com.api.v1.domain.entities.Customer;
-import com.api.v1.dtos.requests.NewCustomerRequestDto;
+import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 
 public class CustomerBuilder {
 
@@ -21,7 +21,7 @@ public class CustomerBuilder {
         return new CustomerBuilder();
     }
 
-    public CustomerBuilder fromDto(NewCustomerRequestDto request) {
+    public CustomerBuilder fromDto(CustomerRegistrationRequestDto request) {
         this.firstName = request.firstName();
         this.middleName = request.middleName();
         this.lastName = request.lastName();

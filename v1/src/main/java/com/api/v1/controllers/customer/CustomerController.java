@@ -1,6 +1,6 @@
 package com.api.v1.controllers.customer;
 
-import com.api.v1.dtos.requests.NewCustomerRequestDto;
+import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.services.customer.CustomerRegistrationService;
 import com.api.v1.services.customer.CustomerUpdateService;
@@ -31,7 +31,7 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<CustomerResponseDto> register(@Valid @RequestBody NewCustomerRequestDto request) {
+    public Mono<CustomerResponseDto> register(@Valid @RequestBody CustomerRegistrationRequestDto request) {
         return registrationService.register(request);
     }
 
@@ -60,7 +60,7 @@ public class CustomerController {
     @PutMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<CustomerResponseDto> update(
-            @Valid @RequestBody NewCustomerRequestDto request
+            @Valid @RequestBody CustomerRegistrationRequestDto request
     ) {
         return updateService.update(request);
     }

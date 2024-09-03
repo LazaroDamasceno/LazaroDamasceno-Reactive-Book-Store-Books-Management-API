@@ -1,6 +1,6 @@
 package com.api.v1;
 
-import com.api.v1.dtos.requests.NewCustomerRequestDto;
+import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,7 @@ class CustomerRegistrationTest {
 	@Test
 	void testSuccessfulCustomerRegistration() {
 
-		var newCustomer = new NewCustomerRequestDto(
+		var newCustomer = new CustomerRegistrationRequestDto(
 				"Leo",
 				"",
 				"Santos",
@@ -40,7 +40,7 @@ class CustomerRegistrationTest {
 	@Test
 	void testUnsuccessfulCustomerRegistration() {
 
-		var newCustomer = new NewCustomerRequestDto(
+		var newCustomer = new CustomerRegistrationRequestDto(
 				"Leo",
 				"",
 				"Santos",

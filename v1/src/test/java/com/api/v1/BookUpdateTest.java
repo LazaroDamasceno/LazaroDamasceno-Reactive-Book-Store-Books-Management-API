@@ -1,6 +1,6 @@
 package com.api.v1;
 
-import com.api.v1.dtos.requests.NewBookRequestDto;
+import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ public class BookUpdateTest {
     @Test
     void testSuccessfulBookUpdate() {
 
-        var updateRequest = new NewBookRequestDto(
+        var updateRequest = new BookRegistrationRequestDto(
                 "Harry Potter",
                 "And the Philosopher's Stone",
                 "123456789012",
@@ -41,7 +41,7 @@ public class BookUpdateTest {
     @Test
     void testUnsSuccessfulBookUpdate() {
 
-        var updateRequest = new NewBookRequestDto(
+        var updateRequest = new BookRegistrationRequestDto(
                 "Harry Potter",
                 "And the Philosopher's Stone",
                 "123456789011",

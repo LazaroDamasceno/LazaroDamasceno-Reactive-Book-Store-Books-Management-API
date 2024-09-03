@@ -3,7 +3,7 @@ package com.api.v1.services.book;
 import com.api.v1.builders.book.BookBuilder;
 import com.api.v1.domain.entities.Book;
 import com.api.v1.domain.repositories.BookRepository;
-import com.api.v1.dtos.requests.NewBookRequestDto;
+import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 import com.api.v1.dtos.responses.BookResponseDto;
 import com.api.v1.exceptions.book.DuplicatedIsbnException;
 import com.api.v1.mappers.book.BookResponseMapper;
@@ -19,7 +19,7 @@ class BookRegistrationServiceImpl implements BookRegistrationService {
     private BookRepository repository;
 
     @Override
-    public Mono<BookResponseDto> register(@Valid NewBookRequestDto request) {
+    public Mono<BookResponseDto> register(@Valid BookRegistrationRequestDto request) {
         return repository
                 .findAll()
                 .filter(book -> book.getIsbn().equals(request.isbn())

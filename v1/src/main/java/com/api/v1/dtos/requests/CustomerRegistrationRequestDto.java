@@ -9,9 +9,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record NewCustomerRequestDto(
+public record CustomerRegistrationRequestDto(
     @NotBlank String firstName, 
-    @NotBlank String middleName, 
+    String middleName,
     @NotBlank String lastName, 
     @SSN String ssn, 
     @NotNull LocalDate birthDate, 

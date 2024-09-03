@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.api.v1.builders.customer.CustomerBuilder;
 import com.api.v1.domain.entities.Customer;
 import com.api.v1.domain.repositories.CustomerRepository;
-import com.api.v1.dtos.requests.NewCustomerRequestDto;
+import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 import com.api.v1.dtos.responses.CustomerResponseDto;
 import com.api.v1.exceptions.customer.DuplicatedSsnException;
 import com.api.v1.mappers.customer.CustomerResponseMapper;
@@ -21,12 +21,12 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
     private CustomerRepository repository;
 
     @Override
-    public Mono<CustomerResponseDto> register(@Valid NewCustomerRequestDto request) {
+    public Mono<CustomerResponseDto> register(@Valid CustomerRegistrationRequestDto request) {
         return repository
             .findAll()
             .filter(customer -> customer.getSsn() != null
                     && customer.getSsn().equals(request.ssn())
-                    && (customer.getArchivedAt()) == null
+                    && customer.getArchivedAt() == null
             )
             .hasElements()
             .flatMap(exists -> {
