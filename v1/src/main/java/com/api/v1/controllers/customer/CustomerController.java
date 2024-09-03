@@ -36,11 +36,13 @@ public class CustomerController {
     }
 
     @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteAll() {
         return deletionService.deleteAll();
     }
 
     @DeleteMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteBySsn(@PathVariable String ssn) {
         return deletionService.deleteBySsn(ssn);
     }

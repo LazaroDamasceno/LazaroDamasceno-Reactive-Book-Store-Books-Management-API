@@ -127,31 +127,31 @@ public class BookController {
     }
 
     @DeleteMapping("{author}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByAuthor(String author) {
         return deletionService.deleteByAuthor(author);
     }
 
     @DeleteMapping("{field}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByField(String field) {
         return deletionService.deleteByField(field);
     }
 
     @DeleteMapping("{year}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByYear(int year) {
         return deletionService.deleteByYear(year);
     }
 
     @DeleteMapping("{version}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByVersion(int version) {
         return deletionService.deleteByVersion(version);
     }
 
     @DeleteMapping("{publisher}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByPublisher(String publisher) {
         return deletionService.deleteByPublisher(publisher);
     }

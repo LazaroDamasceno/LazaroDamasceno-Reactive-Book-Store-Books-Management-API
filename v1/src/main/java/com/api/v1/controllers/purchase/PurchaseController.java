@@ -31,31 +31,31 @@ public class PurchaseController {
     private PurchaseRetrieveService retrieveService;
 
     @DeleteMapping
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteAll() {
         return deletionService.deleteAll();
     }
 
     @DeleteMapping("{ssn}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByCustomer(@PathVariable String ssn) {
         return deletionService.deleteByCustomer(ssn);
     }
 
     @DeleteMapping("{isbn}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByBook(@PathVariable @ISBN String isbn) {
         return deletionService.deleteByBook(isbn);
     }
 
     @DeleteMapping("{year}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByYear(@PathVariable int year) {
         return deletionService.deleteByYear(year);
     }
 
     @DeleteMapping("{ssn}/{isbn}/{year}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByCustomerAndBookAndYear(
             @PathVariable String ssn,
             @PathVariable @ISBN String isbn,
@@ -65,19 +65,19 @@ public class PurchaseController {
     }
 
     @DeleteMapping("{ssn}/{isbn}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByCustomerAndBook(@PathVariable String ssn, @PathVariable @ISBN String isbn) {
         return deletionService.deleteByCustomerAndBook(ssn, isbn);
     }
 
     @DeleteMapping("{ssn}/{year}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByCustomerAndYear(@PathVariable String ssn, @PathVariable int year) {
         return deletionService.deleteByCustomerAndYear(ssn, year);
     }
 
     @DeleteMapping("{isbn}/{year}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> deleteByBookAndYear(@PathVariable @ISBN String isbn, @PathVariable int year) {
         return deletionService.deleteByBookAndYear(isbn, year);
     }
