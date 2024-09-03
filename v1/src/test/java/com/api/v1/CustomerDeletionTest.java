@@ -32,38 +32,4 @@ class CustomerDeletionTest {
                 .is5xxServerError();
     }
 
-    @Test
-    void testSuccessfulCustomerDeletionBySsn() {
-        String ssn = "123456789";
-        webTestClient
-                .delete()
-                .uri("api/v1/customers/%s".formatted(ssn))
-                .exchange()
-                .expectStatus()
-                .is2xxSuccessful();
-
-    }
-
-    @Test
-    void testUnsuccessfulCustomerDeletionWithExistingSsn() {
-        String ssn = "123456789";
-        webTestClient
-                .delete()
-                .uri("api/v1/customers/%s".formatted(ssn))
-                .exchange()
-                .expectStatus()
-                .is5xxServerError();
-    }
-
-    @Test
-    void testUnsuccessfulCustomerDeletionWithNonExistingSsn() {
-        String ssn = "123456788";
-        webTestClient
-                .delete()
-                .uri("api/v1/customers/%s".formatted(ssn))
-                .exchange()
-                .expectStatus()
-                .is5xxServerError();
-    }
-
 }

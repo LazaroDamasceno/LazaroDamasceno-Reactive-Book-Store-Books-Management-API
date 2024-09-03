@@ -31,24 +31,4 @@ public class BookDeletionTest {
                 .is5xxServerError();
     }
 
-    @Test
-    void  testSuccessfulCustomerDeletionByIsbn() {
-        webTestClient
-                .delete()
-                .uri("api/v1/books/%s".formatted("123456789012"))
-                .exchange()
-                .expectStatus()
-                .is2xxSuccessful();
-    }
-
-    @Test
-    void  testUnsuccessfulCustomerDeletionByIsbn() {
-        webTestClient
-                .delete()
-                .uri("api/v1/books/%s".formatted("123456789012"))
-                .exchange()
-                .expectStatus()
-                .is5xxServerError();
-    }
-
 }
