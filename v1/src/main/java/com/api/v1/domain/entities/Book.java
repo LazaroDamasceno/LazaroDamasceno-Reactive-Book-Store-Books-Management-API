@@ -77,6 +77,7 @@ public class Book {
     }
 
     public Book update(BookRegistrationRequestDto request) {
+        this.id = new ObjectId();
         this.title = request.title();
         this.subtitle = request.subtitle();
         this.author = request.author();
