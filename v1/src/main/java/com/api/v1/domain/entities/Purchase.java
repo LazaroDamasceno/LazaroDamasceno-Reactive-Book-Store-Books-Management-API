@@ -18,14 +18,14 @@ public record Purchase(
         String createdAt
 ) {
 
-    public Purchase(Book book, Customer customer, double bookPrice, String state) {
+    public Purchase(Book book, Customer customer, String state) {
         this(
                 book,
                 customer,
-                bookPrice,
+                book.getPrice(),
                 state,
                 SaleTaxRatesUtil.map(state),
-                (1 + SaleTaxRatesUtil.map(state)) * bookPrice,
+                (1 + SaleTaxRatesUtil.map(state)) * book.getPrice(),
                 ZonedDateTime.now().toString()
         );
     }
