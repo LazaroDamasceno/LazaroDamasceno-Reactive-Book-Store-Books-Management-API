@@ -33,3 +33,7 @@
 4. Type on the CMD ``./mvnw clean spring-boot:run``.
 5. Open any browser, then type ``http://localhost:8080/webjars/swagger-ui/index.html``.
 6. Use the Swagger UI.
+
+## API running
+
+To watch the API running, watch the video on the link https://youtu.be/h8A-FScennU.
