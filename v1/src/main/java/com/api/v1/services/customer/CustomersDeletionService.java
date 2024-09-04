@@ -6,4 +6,6 @@ public interface CustomersDeletionService {
 
     Mono<Void> deleteAll();
 
+    Mono<Void> deleteBySsn(String ssn);
+
 }
