@@ -41,12 +41,6 @@ public class CustomerController {
         return deletionService.deleteAll();
     }
 
-    @DeleteMapping("{ssn}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteBySsn(@PathVariable String ssn) {
-        return deletionService.deleteBySsn(ssn);
-    }
-
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<CustomerResponseDto> retrieveAll() {
