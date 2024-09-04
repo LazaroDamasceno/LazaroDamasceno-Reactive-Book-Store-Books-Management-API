@@ -35,7 +35,12 @@ class CustomersDeletionServiceImpl implements CustomersDeletionService {
     public Mono<Void> deleteBySsn(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
-                .flatMap(customer -> repository.delete(customer));
+                .flatMap(customer -> repository
+                        .findAll()
+                        .filter(e -> e.getSsn().equals(ssn))
+                        .flatMap(repository::delete)
+                        .then()
+                );
     }
 
 }

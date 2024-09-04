@@ -35,7 +35,12 @@ class BooksDeletionServiceImpl implements BooksDeletionService {
     public Mono<Void> deleteByIsbn(@ISBN String isbn) {
         return bookFinderUtil
                 .find(isbn)
-                .flatMap(book -> repository.delete(book));
+                .flatMap(book -> repository
+                        .findAll()
+                        .filter(e -> e.getIsbn().equals(isbn))
+                        .flatMap(repository::delete)
+                        .then()
+                );
     }
 
     @Override
