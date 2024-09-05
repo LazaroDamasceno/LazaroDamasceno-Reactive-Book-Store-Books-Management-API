@@ -2,6 +2,8 @@ package com.api.v1.domain.entities;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "v1_customers")
 @Getter
 public class Customer {
+
+    @Id
+    private ObjectId id = new ObjectId();
 
     @Field
     private String createdAt;

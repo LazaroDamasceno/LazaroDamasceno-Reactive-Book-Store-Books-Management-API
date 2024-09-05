@@ -2,6 +2,8 @@ package com.api.v1.domain.entities;
 
 import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 import lombok.Getter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -10,6 +12,9 @@ import java.time.ZonedDateTime;
 @Document(collection = "v1_books")
 @Getter
 public class Book {
+
+    @Id
+    private ObjectId id = new ObjectId();
 
     @Field
     private String createdAt = ZonedDateTime.now().toString();
