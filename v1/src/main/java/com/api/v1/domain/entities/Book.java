@@ -2,8 +2,6 @@ package com.api.v1.domain.entities;
 
 import com.api.v1.dtos.requests.BookRegistrationRequestDto;
 import lombok.Getter;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -12,9 +10,6 @@ import java.time.ZonedDateTime;
 @Document(collection = "v1_books")
 @Getter
 public class Book {
-
-    @Id
-    private ObjectId id = new ObjectId();
 
     @Field
     private String createdAt = ZonedDateTime.now().toString();
@@ -50,7 +45,7 @@ public class Book {
     private int publishingYear;
 
     @Field
-    private String archivedAt;
+    private String updatedAt;
 
     public Book(
             String isbn,
@@ -76,8 +71,7 @@ public class Book {
         this.publishingYear = publishingYear;
     }
 
-    public Book update(BookRegistrationRequestDto request) {
-        this.id = new ObjectId();
+    public void update(BookRegistrationRequestDto request) {
         this.title = request.title();
         this.subtitle = request.subtitle();
         this.author = request.author();
@@ -87,12 +81,7 @@ public class Book {
         this.price = request.price();
         this.publisher = request.publisher();
         this.publishingYear = request.publishingYear();
-        this.archivedAt = null;
-        return this;
-    }
-
-    public void inactive() {
-        this.archivedAt = ZonedDateTime.now().toString();
+        this.updatedAt = ZonedDateTime.now().toString();
     }
 
     public String getFullTitle() {

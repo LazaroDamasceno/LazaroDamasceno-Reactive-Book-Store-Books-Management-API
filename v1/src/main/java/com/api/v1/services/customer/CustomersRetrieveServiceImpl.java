@@ -23,7 +23,6 @@ class CustomersRetrieveServiceImpl implements CustomersRetrieveService {
     public Flux<CustomerResponseDto> retrieveAll() {
         return repository
             .findAll()
-            .filter(e -> e.getArchivedAt() == null)
             .flatMap(customer -> Flux.just(CustomerResponseMapper.map(customer)));
     }
 

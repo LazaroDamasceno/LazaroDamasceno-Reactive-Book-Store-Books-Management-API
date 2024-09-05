@@ -2,20 +2,14 @@ package com.api.v1.domain.entities;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-
 import com.api.v1.dtos.requests.CustomerRegistrationRequestDto;
 import lombok.Getter;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "v1_customers")
 @Getter
 public class Customer {
-
-    @Id
-    private ObjectId id = new ObjectId();
 
     @Field
     private String createdAt;
@@ -48,7 +42,7 @@ public class Customer {
     private String gender;
 
     @Field
-    private String archivedAt;
+    private String updatedAt;
 
     public Customer(
         String firstName, 
@@ -73,8 +67,7 @@ public class Customer {
         this.gender = gender;
     }
 
-    public Customer update(CustomerRegistrationRequestDto request) {
-        this.id = new ObjectId();
+    public void update(CustomerRegistrationRequestDto request) {
         this.firstName = request.firstName();
         this.middleName = request.middleName();
         this.lastName = request.lastName();
@@ -84,17 +77,12 @@ public class Customer {
         this.address = request.address();
         this.phoneNumber = request.phoneNumber();
         this.gender = request.gender();
-        this.archivedAt = null;
-        return this;
+        this.updatedAt = ZonedDateTime.now().toString();
     }
 
     public String getFullName() {
         if (middleName.isEmpty()) return String.format("%s %s", firstName, lastName);
         return String.format("%s %s %s", firstName, middleName, lastName);
-    }
-
-    public void inactive() {
-        this.archivedAt = ZonedDateTime.now().toString();
     }
 
 }

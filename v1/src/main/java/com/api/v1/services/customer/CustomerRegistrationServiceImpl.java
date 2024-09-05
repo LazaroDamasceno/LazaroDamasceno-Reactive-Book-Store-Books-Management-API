@@ -24,10 +24,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
     public Mono<CustomerResponseDto> register(@Valid CustomerRegistrationRequestDto request) {
         return repository
             .findAll()
-            .filter(customer -> customer.getSsn() != null
-                    && customer.getSsn().equals(request.ssn())
-                    && customer.getArchivedAt() == null
-            )
+            .filter(customer -> customer.getSsn().equals(request.ssn()))
             .hasElements()
             .flatMap(exists -> {
                 if (exists) return Mono.error(new DuplicatedSsnException(request.ssn()));
