@@ -27,7 +27,7 @@ You can create on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the
 ### With GIT
 
 1. Open your CMD.
-2. then type ``git clone https://github.com/LazaroDamasceno/Reactive-Medical-Appointments-Management-API.git``.
+2. then type ``git clone https://github.com/LazaroDamasceno/Reactive-Book-Store-Books-Management-API.git``.
 
 ## How to run it
 
