@@ -12,6 +12,10 @@
 |:-:|:-:|
 |MongoDB|https://www.mongodb.com/try/download/community|
 
+I high recommend the use of an online MongoDb database.
+
+You can create on on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the instructions provided by MondoDB.
+
 ## How to download this repository
 
 ### Without GIT
