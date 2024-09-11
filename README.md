@@ -14,7 +14,7 @@
 
 I high recommend the use of an online MongoDb database.
 
-You can create on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the instructions provided by MondoDB.
+You can create on https://www.mongodb.com/pt-br/cloud/atlas/register. Follow the instructions provided by MongoDB.
 
 ## How to download this repository
 
