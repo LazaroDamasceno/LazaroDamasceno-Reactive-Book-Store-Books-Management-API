@@ -1,4 +1,7 @@
-package com.api.v2
+package com.api.v2.customer.utils
+
+import com.api.v2.customer.domain.Customer
+import com.api.v2.customer.dtos.CustomerResponseDto
 
 class CustomerResponseMapper {
 

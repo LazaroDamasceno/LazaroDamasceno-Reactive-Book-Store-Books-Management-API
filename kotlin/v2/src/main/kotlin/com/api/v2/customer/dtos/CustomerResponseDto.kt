@@ -1,4 +1,4 @@
-package com.api.v2
+package com.api.v2.customer.dtos
 
 import java.time.LocalDate
 
