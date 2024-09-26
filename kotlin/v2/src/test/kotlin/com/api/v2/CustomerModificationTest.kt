@@ -12,7 +12,7 @@ import java.time.LocalDate
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerModificationTest {
+private class CustomerModificationTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
