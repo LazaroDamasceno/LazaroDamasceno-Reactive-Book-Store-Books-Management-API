@@ -1,5 +1,7 @@
 package com.api.v2.book
 
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -12,21 +14,21 @@ data class Book(
     @Id
     var id: UUID,
     @Field
-    var title: String,
+    var title: @NotBlank String,
     @Field
     var subtitle: String?,
     @Field
-    val isbn: String,
+    val isbn: @ISBN String,
     @Field
-    var author: String,
+    var author: @NotBlank String,
     @Field
-    var field: String,
+    var field: @NotBlank String,
     @Field
-    var publisher: String,
+    var publisher: @NotBlank String,
     @Field
-    var numberOfPages: Int,
+    var numberOfPages: @Min(1) Int,
     @Field
-    var version: Int,
+    var version: @Min(1) Int,
     @Field
     val createdAt: Instant,
     @Field
