@@ -1,7 +1,7 @@
 package com.api.v2.customer.service
 
 import com.api.v2.customer.dtos.CustomerResponseDto
-import com.api.v2.customer.utils.CustomerResponseMapper
+import com.api.v2.customer.utils.CustomerResponseMapperUtil
 import com.api.v2.customer.exceptions.DuplicatedSsnException
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
@@ -33,7 +33,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
         return withContext(Dispatchers.IO) {
             isSsnDuplicated()
             val savedCustomer = customerRepository.save(customer)
-            CustomerResponseMapper.map(savedCustomer)
+            CustomerResponseMapperUtil.map(savedCustomer)
         }
 
     }

@@ -3,7 +3,7 @@ package com.api.v2.customer.utils
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerResponseDto
 
-class CustomerResponseMapper {
+class CustomerResponseMapperUtil {
 
     companion object {
         fun map(customer: Customer): CustomerResponseDto {

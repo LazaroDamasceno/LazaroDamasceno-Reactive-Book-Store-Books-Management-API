@@ -1,5 +1,6 @@
 package com.api.v2.customer.domain
 
+import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -68,6 +69,17 @@ data class Customer(
             return "$firstName $lastName"
         }
         return "$firstName $middleName $lastName"
+    }
+
+    fun update(requestDto: CustomerModificationRequestDto): Customer {
+        firstName = requestDto.firstName
+        middleName = requestDto.middleName
+        lastName = requestDto.lastName
+        birthDate = requestDto.birthDate
+        email = requestDto.email
+        gender = requestDto.gender
+        phoneNumber = requestDto.phoneNumber
+        return this
     }
 
 }
