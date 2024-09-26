@@ -1,5 +1,6 @@
 package com.api.v2.customer.service
 
+import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.utils.CustomerFInderUtil
@@ -18,7 +19,7 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    override suspend fun modify(ssn: String, requestDto: @Valid CustomerModificationRequestDto) {
+    override suspend fun modify(ssn: @SSN String, requestDto: @Valid CustomerModificationRequestDto) {
         return withContext(Dispatchers.IO) {
             val customer = customerFInderUtil.find(ssn)
             val finishedCustomer = customer.finish()

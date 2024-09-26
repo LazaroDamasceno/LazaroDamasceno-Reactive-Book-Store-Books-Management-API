@@ -1,6 +1,11 @@
 package com.api.v2.customer.domain
 
+import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -40,14 +45,14 @@ data class Customer(
 ) {
 
     constructor(
-        firstName: String,
+        firstName: @NotBlank String,
         middleName: String?,
-        lastName: String,
-        ssn: String,
-        birthDate: LocalDate,
-        email: String,
-        gender: String,
-        phoneNumber: String
+        lastName: @NotBlank String,
+        ssn: @SSN String,
+        birthDate: @NotNull LocalDate,
+        email: @Email @NotBlank String,
+        gender: @Size(min=1) @NotBlank String,
+        phoneNumber: @Size(min=10, max=10) @NotBlank String
     ): this(
         UUID.randomUUID(),
         firstName,

@@ -1,5 +1,6 @@
 package com.api.v2.customer.controller
 
+import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.service.CustomerRegistrationService
 import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.domain.Customer
@@ -28,7 +29,7 @@ class CustomerController {
 
     @PutMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
-    suspend fun modify(@PathVariable ssn: String, @RequestBody requestDto: @Valid CustomerModificationRequestDto) {
+    suspend fun modify(@PathVariable ssn: @SSN String, @RequestBody requestDto: @Valid CustomerModificationRequestDto) {
         return customerModificationService.modify(ssn, requestDto)
     }
 
