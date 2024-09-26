@@ -5,8 +5,10 @@ import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.utils.CustomerFinderUtil
 import com.api.v2.customer.utils.CustomerResponseMapperUtil
+import com.api.v2.exceptions.EmptyEntityException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,6 +32,9 @@ private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
 
     override suspend fun findAll(): Flow<CustomerResponseDto> {
         return withContext(Dispatchers.IO) {
+            if (customerRepository.findAll().count() == 0) {
+                throw EmptyEntityException()
+            }
             customerRepository
                 .findAll()
                 .map { e -> CustomerResponseMapperUtil.map(e) }
