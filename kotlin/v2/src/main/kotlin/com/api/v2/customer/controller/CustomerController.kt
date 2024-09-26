@@ -5,6 +5,7 @@ import com.api.v2.customer.service.CustomerRegistrationService
 import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import com.api.v2.customer.service.CustomerDeletionService
 import com.api.v2.customer.service.CustomerModificationService
 import com.api.v2.customer.service.CustomerRetrievalService
 import jakarta.validation.Valid
@@ -25,6 +26,9 @@ class CustomerController {
 
     @Autowired
     private lateinit var customerRetrievalService: CustomerRetrievalService
+
+    @Autowired
+    private lateinit var customerDeletionService: CustomerDeletionService
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -48,6 +52,18 @@ class CustomerController {
     @ResponseStatus(value = HttpStatus.OK)
     suspend fun findAll(): Flow<CustomerResponseDto> {
         return customerRetrievalService.findAll()
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteAll() {
+        return customerDeletionService.deleteAll()
+    }
+
+    @DeleteMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteBySsn(@PathVariable ssn: @SSN String) {
+        return customerDeletionService.deleteBySsn(ssn)
     }
 
 }
