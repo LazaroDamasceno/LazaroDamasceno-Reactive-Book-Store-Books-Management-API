@@ -36,7 +36,7 @@ data class Customer(
     @Field
     var modifiedAt: Instant?,
     @Field
-    val modificationZoneId: ZoneId?
+    var modificationZoneId: ZoneId?
 ) {
 
     constructor(
@@ -71,7 +71,14 @@ data class Customer(
         return "$firstName $middleName $lastName"
     }
 
-    fun update(requestDto: CustomerModificationRequestDto): Customer {
+    fun finish(): Customer {
+        modifiedAt = Instant.now()
+        modificationZoneId = ZoneId.systemDefault()
+        return this
+    }
+
+    fun modify(requestDto: CustomerModificationRequestDto): Customer {
+        id = UUID.randomUUID()
         firstName = requestDto.firstName
         middleName = requestDto.middleName
         lastName = requestDto.lastName
@@ -79,6 +86,8 @@ data class Customer(
         email = requestDto.email
         gender = requestDto.gender
         phoneNumber = requestDto.phoneNumber
+        modifiedAt = null
+        modificationZoneId = null
         return this
     }
 
