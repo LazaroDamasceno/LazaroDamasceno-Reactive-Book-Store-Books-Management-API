@@ -2,16 +2,18 @@ package com.api.v2.customer.service
 
 import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.domain.CustomerRepository
-import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.utils.CustomerFinderUtil
-import jakarta.validation.Valid
+import com.api.v2.customer.utils.CustomerResponseMapperUtil
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-private class CustomerModificationServiceImpl: CustomerModificationService {
+private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
 
     @Autowired
     lateinit var customerFinderUtil: CustomerFinderUtil
@@ -19,13 +21,18 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    override suspend fun modify(ssn: @SSN String, requestDto: @Valid CustomerModificationRequestDto) {
+    override suspend fun findBySsn(ssn: @SSN String): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val customer = customerFinderUtil.find(ssn)
-            val finishedCustomer = customer.finish()
-            val savedFinishCustomer = customerRepository.save(finishedCustomer)
-            val modifiedCustomer = savedFinishCustomer.modify(requestDto)
-            customerRepository.save(modifiedCustomer)
+            CustomerResponseMapperUtil.map(customer)
+        }
+    }
+
+    override suspend fun findAll(): Flow<CustomerResponseDto> {
+        return withContext(Dispatchers.IO) {
+            customerRepository
+                .findAll()
+                .map { e -> CustomerResponseMapperUtil.map(e) }
         }
     }
 

@@ -6,7 +6,9 @@ import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.service.CustomerModificationService
+import com.api.v2.customer.service.CustomerRetrievalService
 import jakarta.validation.Valid
+import kotlinx.coroutines.flow.Flow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -21,6 +23,9 @@ class CustomerController {
     @Autowired
     private lateinit var customerModificationService: CustomerModificationService
 
+    @Autowired
+    private lateinit var customerRetrievalService: CustomerRetrievalService
+
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     suspend fun register(@RequestBody customer: @Valid Customer): CustomerResponseDto {
@@ -31,6 +36,18 @@ class CustomerController {
     @ResponseStatus(value = HttpStatus.OK)
     suspend fun modify(@PathVariable ssn: @SSN String, @RequestBody requestDto: @Valid CustomerModificationRequestDto) {
         return customerModificationService.modify(ssn, requestDto)
+    }
+
+    @GetMapping("{ssn}")
+    @ResponseStatus(value = HttpStatus.OK)
+    suspend fun findBySsn(@PathVariable ssn: @SSN String): CustomerResponseDto {
+        return customerRetrievalService.findBySsn(ssn)
+    }
+
+    @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    suspend fun findAll(): Flow<CustomerResponseDto> {
+        return customerRetrievalService.findAll()
     }
 
 }
