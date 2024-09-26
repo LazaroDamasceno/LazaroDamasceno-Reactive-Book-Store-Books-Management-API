@@ -1,40 +1,40 @@
 package com.api.v2
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
 
-@Table("v2_customers")
+@Document(collection = "v2_customers")
 data class Customer(
     @Id
-    var id: String,
-    @Column
+    var id: UUID,
+    @Field
     var firstName: String,
-    @Column
+    @Field
     var middleName: String?,
-    @Column
+    @Field
     var lastName: String,
-    @Column
+    @Field
     val ssn: String,
-    @Column
+    @Field
     var birthDate: LocalDate,
-    @Column
+    @Field
     var email: String,
-    @Column
+    @Field
     var gender: String,
-    @Column
+    @Field
     var phoneNumber: String,
-    @Column
+    @Field
     val createdAt: Instant,
-    @Column
+    @Field
     val creationZoneId: ZoneId,
-    @Column
+    @Field
     var modifiedAt: Instant?,
-    @Column
+    @Field
     val modificationZoneId: ZoneId?
 ) {
 
@@ -46,9 +46,9 @@ data class Customer(
         birthDate: LocalDate,
         email: String,
         gender: String,
-        phoneNumber: String,
+        phoneNumber: String
     ): this(
-        UUID.randomUUID().toString(),
+        UUID.randomUUID(),
         firstName,
         middleName,
         lastName,
