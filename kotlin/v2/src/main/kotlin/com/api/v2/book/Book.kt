@@ -62,22 +62,23 @@ data class Book(
         null
     )
 
-    fun modify(
-        title: String,
-        subtitle: String?,
-        author: String,
-        field: String,
-        publisher: String,
-        numberOfPages: Int,
-        version: Int
-    ): Book {
-        this.title = title
-        this.subtitle = subtitle
-        this.author = author
-        this.field = field
-        this.publisher = publisher
-        this.numberOfPages = numberOfPages
-        this.version = version
+    fun finish(): Book {
+        modifiedAt = Instant.now()
+        modificationZoneId = ZoneId.systemDefault()
+        return this
+    }
+
+    fun modify(requestDto: BookModificationRequestDto): Book {
+        id = UUID.randomUUID()
+        title = requestDto.title
+        subtitle = requestDto.subtitle
+        author = requestDto.author
+        field = requestDto.field
+        publisher = requestDto.publisher
+        numberOfPages = requestDto.numberOfPages
+        version = requestDto.version
+        modifiedAt = null
+        modificationZoneId = null
         return this
     }
 
