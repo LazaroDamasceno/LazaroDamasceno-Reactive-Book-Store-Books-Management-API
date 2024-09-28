@@ -1,11 +1,15 @@
 package com.api.v2.book
 
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
+
 data class BookModificationRequestDto(
-    val title: String,
+    val title: @NotBlank String,
     val subtitle: String?,
-    val author: String,
-    val field: String,
-    val publisher: String,
-    val numberOfPages: Int,
-    val version: Int
+    val author: @NotBlank String,
+    val field: @NotBlank String,
+    val publisher: @NotBlank String,
+    val numberOfPages: @Min(1) Int,
+    val version: @Min(1) Int,
+    val publishingYear: Int
 )
