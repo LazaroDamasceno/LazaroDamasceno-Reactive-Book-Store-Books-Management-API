@@ -7,7 +7,7 @@ CREATE TABLE books (
   field VARCHAR(255) NOT NULL,
   publisher VARCHAR(255) NOT NULL,
   number_of_pages INTEGER NOT NULL DEFAULT 1 CHECK(number_of_pages > 0),
-  version INTEGER NOT NULL DEFAULT 1 CHECK(version > 1),
+  version INTEGER NOT NULL DEFAULT 1 CHECK(version > 0),
   created_at TIMESTAMP NOT NULL,
   creation_zone_id VARCHAR(255) NOT NULL,
   modified_at TIMESTAMP,
