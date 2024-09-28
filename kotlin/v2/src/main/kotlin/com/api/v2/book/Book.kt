@@ -3,39 +3,26 @@ package com.api.v2.book
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.Field
+import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
 import java.time.ZoneId
 import java.util.UUID
 
-@Document(collection = "v2_books")
+@Table("books")
 data class Book(
     @Id
-    var id: UUID,
-    @Field
+    var id: String,
     var title: @NotBlank String,
-    @Field
     var subtitle: String?,
-    @Field
     val isbn: @ISBN String,
-    @Field
     var author: @NotBlank String,
-    @Field
     var field: @NotBlank String,
-    @Field
     var publisher: @NotBlank String,
-    @Field
     var numberOfPages: @Min(1) Int,
-    @Field
     var version: @Min(1) Int,
-    @Field
     val createdAt: Instant,
-    @Field
     val creationZoneId: ZoneId,
-    @Field
     var modifiedAt: Instant?,
-    @Field
     var modificationZoneId: ZoneId?
 ) {
 
@@ -49,7 +36,7 @@ data class Book(
         numberOfPages: Int,
         version: Int
     ) : this(
-        UUID.randomUUID(),
+        UUID.randomUUID().toString(),
         title,
         subtitle,
         isbn,
@@ -71,7 +58,7 @@ data class Book(
     }
 
     fun modify(requestDto: BookModificationRequestDto): Book {
-        id = UUID.randomUUID()
+        id = UUID.randomUUID().toString()
         title = requestDto.title
         subtitle = requestDto.subtitle
         author = requestDto.author

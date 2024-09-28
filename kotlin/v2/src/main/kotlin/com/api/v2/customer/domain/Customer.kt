@@ -1,73 +1,30 @@
 package com.api.v2.customer.domain
 
-import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Size
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.data.mongodb.core.mapping.Field
+import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
 
-@Document(collection = "v2_customers")
+@Table("customers")
 data class Customer(
     @Id
-    var id: UUID,
-    @Field
+    var id: UUID?,
     var firstName: String,
-    @Field
     var middleName: String?,
-    @Field
     var lastName: String,
-    @Field
     val ssn: String,
-    @Field
     var birthDate: LocalDate,
-    @Field
     var email: String,
-    @Field
     var gender: String,
-    @Field
     var phoneNumber: String,
-    @Field
     val createdAt: Instant,
-    @Field
     val creationZoneId: ZoneId,
-    @Field
     var modifiedAt: Instant?,
-    @Field
     var modificationZoneId: ZoneId?
 ) {
-
-    constructor(
-        firstName: @NotBlank String,
-        middleName: String?,
-        lastName: @NotBlank String,
-        ssn: @SSN String,
-        birthDate: @NotNull LocalDate,
-        email: @Email @NotBlank String,
-        gender: @Size(min=1) @NotBlank String,
-        phoneNumber: @Size(min=10, max=10) @NotBlank String
-    ): this(
-        UUID.randomUUID(),
-        firstName,
-        middleName,
-        lastName,
-        ssn,
-        birthDate,
-        email,
-        gender,
-        phoneNumber,
-        Instant.now(),
-        ZoneId.systemDefault(),
-        null,
-        null
-    )
 
     fun fullName(): String {
         if (middleName.isNullOrEmpty()) {

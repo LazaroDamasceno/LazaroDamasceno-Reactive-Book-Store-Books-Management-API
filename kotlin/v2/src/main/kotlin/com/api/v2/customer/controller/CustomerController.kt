@@ -5,6 +5,7 @@ import com.api.v2.customer.service.CustomerRegistrationService
 import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
 import com.api.v2.customer.service.CustomerDeletionService
 import com.api.v2.customer.service.CustomerModificationService
 import com.api.v2.customer.service.CustomerRetrievalService
@@ -32,8 +33,8 @@ class CustomerController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    suspend fun register(@RequestBody customer: @Valid Customer): CustomerResponseDto {
-        return customerRegistrationService.register(customer)
+    suspend fun register(@RequestBody requestDto: @Valid CustomerRegistrationRequestDto): CustomerResponseDto {
+        return customerRegistrationService.register(requestDto)
     }
 
     @PutMapping("{ssn}")
