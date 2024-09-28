@@ -6,6 +6,7 @@ import com.api.v2.book.dtos.BookRegistrationRequestDto
 import com.api.v2.book.dtos.BookResponseDto
 import com.api.v2.book.exceptions.DuplicatedIsbnException
 import com.api.v2.book.utils.BookResponseMapper
+import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
@@ -19,7 +20,7 @@ private class BookRegistrationServiceImpl: BookRegistrationService {
     @Autowired
     lateinit var bookRepository: BookRepository
 
-    override suspend fun register(requestDto: BookRegistrationRequestDto): BookResponseDto {
+    override suspend fun register(requestDto: @Valid BookRegistrationRequestDto): BookResponseDto {
         return withContext(Dispatchers.IO) {
             if (bookRepository.findAll().filter { e -> e.isbn == requestDto.isbn }.count() != 0) {
                 throw DuplicatedIsbnException(requestDto.isbn)
