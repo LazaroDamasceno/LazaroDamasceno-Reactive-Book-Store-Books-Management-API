@@ -1,0 +1,1 @@
+ALTER TABLE books ADD COLUMN publishing_year INTEGER NOT NULL;
