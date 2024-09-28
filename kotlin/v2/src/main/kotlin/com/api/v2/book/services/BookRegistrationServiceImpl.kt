@@ -2,11 +2,13 @@ package com.api.v2.book.services
 
 import com.api.v2.book.domain.Book
 import com.api.v2.book.domain.BookRepository
+import com.api.v2.book.dtos.BookModificationRequestDto
 import com.api.v2.book.dtos.BookRegistrationRequestDto
 import com.api.v2.book.dtos.BookResponseDto
 import com.api.v2.book.exceptions.DuplicatedIsbnException
 import com.api.v2.book.utils.BookResponseMapper
 import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
@@ -27,6 +29,19 @@ private class BookRegistrationServiceImpl: BookRegistrationService {
             }
             val book = Book(requestDto)
             val savedBook = bookRepository.save(book)
+            BookResponseMapper.map(savedBook)
+        }
+    }
+
+    override suspend fun register(book: @NotNull Book, requestDto: @Valid BookModificationRequestDto): BookResponseDto {
+        return withContext(Dispatchers.IO) {
+            val modifiedBook = Book(
+                book.isbn,
+                requestDto,
+                book.createdAt,
+                book.creationZoneId
+            )
+            val savedBook = bookRepository.save(modifiedBook)
             BookResponseMapper.map(savedBook)
         }
     }
