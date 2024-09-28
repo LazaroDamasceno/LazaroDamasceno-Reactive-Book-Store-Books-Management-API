@@ -1,5 +1,8 @@
-package com.api.v2.book
+package com.api.v2.book.utils
 
+import com.api.v2.book.exceptions.BookNotFoundException
+import com.api.v2.book.domain.Book
+import com.api.v2.book.domain.BookRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.singleOrNull

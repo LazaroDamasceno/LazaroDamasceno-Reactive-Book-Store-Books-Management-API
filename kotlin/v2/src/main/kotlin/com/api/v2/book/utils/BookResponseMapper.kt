@@ -1,4 +1,7 @@
-package com.api.v2.book
+package com.api.v2.book.utils
+
+import com.api.v2.book.dtos.BookResponseDto
+import com.api.v2.book.domain.Book
 
 class BookResponseMapper {
 

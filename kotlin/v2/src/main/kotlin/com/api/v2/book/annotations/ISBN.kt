@@ -1,4 +1,4 @@
-package com.api.v2.book
+package com.api.v2.book.annotations
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size

@@ -1,4 +1,4 @@
-package com.api.v2.book
+package com.api.v2.book.dtos
 
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank

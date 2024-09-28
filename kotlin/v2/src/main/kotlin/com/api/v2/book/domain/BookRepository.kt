@@ -1,4 +1,4 @@
-package com.api.v2.book
+package com.api.v2.book.domain
 
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
