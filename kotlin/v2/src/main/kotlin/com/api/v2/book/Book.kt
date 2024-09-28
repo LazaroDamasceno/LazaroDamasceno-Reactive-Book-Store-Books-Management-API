@@ -1,7 +1,5 @@
 package com.api.v2.book
 
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotBlank
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
@@ -9,22 +7,22 @@ import java.time.ZoneId
 import java.util.UUID
 
 @Table("books")
-data class Book(
+class Book {
+
     @Id
-    var id: String,
-    var title: @NotBlank String,
-    var subtitle: String?,
-    val isbn: @ISBN String,
-    var author: @NotBlank String,
-    var field: @NotBlank String,
-    var publisher: @NotBlank String,
-    var numberOfPages: @Min(1) Int,
-    var version: @Min(1) Int,
-    val createdAt: Instant,
-    val creationZoneId: ZoneId,
-    var modifiedAt: Instant?,
-    var modificationZoneId: ZoneId?
-) {
+    var id: UUID? = null
+    var title: String
+    var subtitle: String?
+    val isbn: String
+    var author: String
+    var field: String
+    var publisher: String
+    var numberOfPages: Int
+    var version: Int
+    val createdAt: Instant = Instant.now()
+    val creationZoneId: ZoneId = ZoneId.systemDefault()
+    var modifiedAt: Instant? = null
+    var modificationZoneId: ZoneId? = null
 
     constructor(
         title: String,
@@ -35,30 +33,18 @@ data class Book(
         publisher: String,
         numberOfPages: Int,
         version: Int
-    ) : this(
-        UUID.randomUUID().toString(),
-        title,
-        subtitle,
-        isbn,
-        author,
-        field,
-        publisher,
-        numberOfPages,
-        version,
-        Instant.now(),
-        ZoneId.systemDefault(),
-        null,
-        null
-    )
-
-    fun finish(): Book {
-        modifiedAt = Instant.now()
-        modificationZoneId = ZoneId.systemDefault()
-        return this
+    ) {
+        this.title = title
+        this.subtitle = subtitle
+        this.isbn = isbn
+        this.author = author
+        this.field = field
+        this.publisher = publisher
+        this.numberOfPages = numberOfPages
+        this.version = version
     }
 
-    fun modify(requestDto: BookModificationRequestDto): Book {
-        id = UUID.randomUUID().toString()
+    fun modify(requestDto: BookModificationRequestDto) {
         title = requestDto.title
         subtitle = requestDto.subtitle
         author = requestDto.author
@@ -66,9 +52,8 @@ data class Book(
         publisher = requestDto.publisher
         numberOfPages = requestDto.numberOfPages
         version = requestDto.version
-        modifiedAt = null
-        modificationZoneId = null
-        return this
+        modifiedAt = Instant.now()
+        modificationZoneId = ZoneId.systemDefault()
     }
 
     fun fullTitle(): String {
