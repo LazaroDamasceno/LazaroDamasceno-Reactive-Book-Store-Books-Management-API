@@ -2,7 +2,6 @@ package com.api.v2.customer.domain
 
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
-import jakarta.validation.Valid
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
@@ -15,18 +14,20 @@ class Customer {
 
     @Id
     var id: UUID? = null
-    var firstName: String
-    var middleName: String?
-    var lastName: String
-    val ssn: String
-    var birthDate: LocalDate
-    var email: String
-    var gender: String
-    var phoneNumber: String
-    val createdAt: Instant = Instant.now()
-    val creationZoneId: ZoneId = ZoneId.systemDefault()
+    lateinit var firstName: String
+    var middleName: String? = null
+    lateinit var lastName: String
+    lateinit var ssn: String
+    lateinit var birthDate: LocalDate
+    lateinit var email: String
+    lateinit var gender: String
+    lateinit var phoneNumber: String
+    var createdAt: Instant = Instant.now()
+    var creationZoneId: ZoneId = ZoneId.systemDefault()
     var modifiedAt: Instant? = null
     var modificationZoneId: ZoneId? = null
+
+    constructor()
 
     constructor(requestDto: CustomerRegistrationRequestDto) {
         this.firstName = requestDto.firstName
@@ -39,6 +40,24 @@ class Customer {
         this.phoneNumber = requestDto.phoneNumber
     }
 
+    constructor(
+        ssn: String,
+        requestDto: CustomerModificationRequestDto,
+        createdAt: Instant,
+        creationZoneId: ZoneId
+    ) {
+        this.firstName = requestDto.firstName
+        this.middleName = requestDto.middleName
+        this.lastName = requestDto.lastName
+        this.ssn = ssn
+        this.birthDate = requestDto.birthDate
+        this.email = requestDto.email
+        this.gender = requestDto.gender
+        this.phoneNumber = requestDto.phoneNumber
+        this.createdAt = createdAt
+        this.creationZoneId = creationZoneId
+    }
+
     fun fullName(): String {
         if (middleName.isNullOrEmpty()) {
             return "$firstName $lastName"
@@ -46,14 +65,7 @@ class Customer {
         return "$firstName $middleName $lastName"
     }
 
-    fun modify(requestDto: CustomerModificationRequestDto) {
-        firstName = requestDto.firstName
-        middleName = requestDto.middleName
-        lastName = requestDto.lastName
-        birthDate = requestDto.birthDate
-        email = requestDto.email
-        gender = requestDto.gender
-        phoneNumber = requestDto.phoneNumber
+    fun modify() {
         modifiedAt = Instant.now()
         modificationZoneId = ZoneId.systemDefault()
     }

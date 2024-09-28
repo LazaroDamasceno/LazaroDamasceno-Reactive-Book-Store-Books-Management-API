@@ -5,15 +5,16 @@ import com.api.v2.customer.utils.CustomerResponseMapperUtil
 import com.api.v2.customer.exceptions.DuplicatedSsnException
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
+import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
-import jakarta.validation.Valid import kotlinx.coroutines.Dispatchers
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.time.Instant
-import java.time.ZoneId
 
 @Service
 private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
@@ -28,6 +29,22 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
             }
             val customer = Customer(requestDto)
             val savedCustomer = customerRepository.save(customer)
+            CustomerResponseMapperUtil.map(savedCustomer)
+        }
+    }
+
+    override suspend fun register(
+        existingCustomer: @NotNull Customer,
+        requestDto: @Valid CustomerModificationRequestDto
+    ): CustomerResponseDto {
+        return withContext(Dispatchers.IO) {
+            val modifiedCustomer = Customer(
+                existingCustomer.ssn,
+                requestDto,
+                existingCustomer.createdAt,
+                existingCustomer.creationZoneId
+            )
+            val savedCustomer = customerRepository.save(modifiedCustomer)
             CustomerResponseMapperUtil.map(savedCustomer)
         }
     }

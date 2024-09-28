@@ -5,7 +5,7 @@ CREATE TABLE customers (
   last_name VARCHAR(255) NOT NULL,
   ssn VARCHAR(9) NOT NULL,
   birth_date DATE NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL,
   gender VARCHAR(255) NOT NULL,
   phone_number VARCHAR(10) NOT NULL,
   created_at TIMESTAMP NOT NULL,

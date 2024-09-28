@@ -20,7 +20,7 @@ class CustomerFinderUtil {
         return withContext(Dispatchers.IO) {
             val customer = customerRepository.
                 findAll()
-                .filter { e -> e.ssn == ssn }
+                .filter { e -> e.ssn == ssn && e.modifiedAt == null }
                 .singleOrNull()
             if (customer == null) throw CustomerNotFoundException()
             customer

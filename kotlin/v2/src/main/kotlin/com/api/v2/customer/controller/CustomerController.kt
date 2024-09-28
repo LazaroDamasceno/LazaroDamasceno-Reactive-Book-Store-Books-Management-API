@@ -3,7 +3,6 @@ package com.api.v2.customer.controller
 import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.service.CustomerRegistrationService
 import com.api.v2.customer.dtos.CustomerResponseDto
-import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
 import com.api.v2.customer.service.CustomerDeletionService
@@ -42,7 +41,7 @@ class CustomerController {
     suspend fun modify(
         @PathVariable ssn: @SSN String,
         @RequestBody requestDto: @Valid CustomerModificationRequestDto
-    ): Customer {
+    ): CustomerResponseDto {
         return customerModificationService.modify(ssn, requestDto)
     }
 

@@ -22,7 +22,7 @@ private class CustomerModificationTest {
         "Silva",
         "Santos Jr.",
         LocalDate.parse("1997-12-12"),
-        "jr@leosantos.com",
+        "jr@leosantos.ru",
         "cis male",
         "0987654321"
     )

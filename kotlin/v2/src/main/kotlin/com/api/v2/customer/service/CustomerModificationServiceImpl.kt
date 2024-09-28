@@ -4,6 +4,7 @@ import com.api.v2.customer.anotations.SSN
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import com.api.v2.customer.dtos.CustomerResponseDto
 import com.api.v2.customer.utils.CustomerFinderUtil
 import jakarta.validation.Valid
 import kotlinx.coroutines.Dispatchers
@@ -26,11 +27,12 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
     override suspend fun modify(
         ssn: @SSN String,
         requestDto: @Valid CustomerModificationRequestDto
-    ): Customer {
+    ): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val customer = customerFinderUtil.find(ssn)
-            customer.modify(requestDto)
-            customerRepository.save(customer)
+            customer.modify()
+            val archivedCustomer = customerRepository.save(customer)
+            customerRegistrationService.register(archivedCustomer, requestDto)
         }
     }
 
