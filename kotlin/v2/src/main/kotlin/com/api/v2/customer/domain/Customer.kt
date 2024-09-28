@@ -24,10 +24,10 @@ class Customer {
     lateinit var phoneNumber: String
     var createdAt: Instant = Instant.now()
     var creationZoneId: ZoneId = ZoneId.systemDefault()
-    var modifiedAt: Instant? = null
-    var modificationZoneId: ZoneId? = null
+    var archivedAt: Instant? = null
+    var archivingZoneId: ZoneId? = null
 
-    constructor()
+    constructor() {}
 
     constructor(requestDto: CustomerRegistrationRequestDto) {
         this.firstName = requestDto.firstName
@@ -65,9 +65,9 @@ class Customer {
         return "$firstName $middleName $lastName"
     }
 
-    fun modify() {
-        modifiedAt = Instant.now()
-        modificationZoneId = ZoneId.systemDefault()
+    fun archive() {
+        archivedAt = Instant.now()
+        archivingZoneId = ZoneId.systemDefault()
     }
 
 }

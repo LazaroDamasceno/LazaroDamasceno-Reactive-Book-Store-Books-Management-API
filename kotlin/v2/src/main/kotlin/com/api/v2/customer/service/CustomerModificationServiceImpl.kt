@@ -1,7 +1,6 @@
 package com.api.v2.customer.service
 
 import com.api.v2.customer.anotations.SSN
-import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.dtos.CustomerResponseDto
@@ -30,7 +29,7 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
     ): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
             val customer = customerFinderUtil.find(ssn)
-            customer.modify()
+            customer.archive()
             val archivedCustomer = customerRepository.save(customer)
             customerRegistrationService.register(archivedCustomer, requestDto)
         }

@@ -7,6 +7,7 @@ import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
+import com.api.v2.customer.exceptions.DuplicatedEmailException
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,14 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
         return withContext(Dispatchers.IO) {
             if (customerRepository.findAll().filter { e -> e.ssn == requestDto.ssn }.count() != 0) {
                 throw DuplicatedSsnException(requestDto.ssn)
+            }
+            if (customerRepository
+                .findAll()
+                .filter { e ->
+                    e.email == requestDto.email
+                            && e.archivedAt == null
+                }.count() != 0) {
+                    throw DuplicatedEmailException(requestDto.email)
             }
             val customer = Customer(requestDto)
             val savedCustomer = customerRepository.save(customer)
