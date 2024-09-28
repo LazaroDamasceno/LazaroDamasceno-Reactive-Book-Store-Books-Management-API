@@ -1,6 +1,7 @@
 package com.api.v2.customer.domain
 
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
+import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
 import jakarta.validation.Valid
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
@@ -22,33 +23,20 @@ class Customer {
     var email: String
     var gender: String
     var phoneNumber: String
-    val createdAt: Instant
-    val creationZoneId: ZoneId
+    val createdAt: Instant = Instant.now()
+    val creationZoneId: ZoneId = ZoneId.systemDefault()
     var modifiedAt: Instant? = null
     var modificationZoneId: ZoneId? = null
 
-    constructor(
-        firstName: String,
-        middleName: String?,
-        lastName: String,
-        ssn: String,
-        birthDate: LocalDate,
-        email: String,
-        gender: String,
-        phoneNumber: String,
-        createdAt: Instant,
-        creationZoneId: ZoneId
-    ) {
-        this.firstName = firstName
-        this.middleName = middleName
-        this.lastName = lastName
-        this.ssn = ssn
-        this.birthDate = birthDate
-        this.email = email
-        this.gender = gender
-        this.phoneNumber = phoneNumber
-        this.createdAt = createdAt
-        this.creationZoneId = creationZoneId
+    constructor(requestDto: CustomerRegistrationRequestDto) {
+        this.firstName = requestDto.firstName
+        this.middleName = requestDto.middleName
+        this.lastName = requestDto.lastName
+        this.ssn = requestDto.ssn
+        this.birthDate = requestDto.birthDate
+        this.email = requestDto.email
+        this.gender = requestDto.gender
+        this.phoneNumber = requestDto.phoneNumber
     }
 
     fun fullName(): String {

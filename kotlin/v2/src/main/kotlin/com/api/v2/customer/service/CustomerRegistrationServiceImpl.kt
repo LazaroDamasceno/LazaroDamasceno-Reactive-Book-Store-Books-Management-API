@@ -26,18 +26,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
             if (customerRepository.findAll().filter { e -> e.ssn == requestDto.ssn }.count() != 0) {
                 throw DuplicatedSsnException(requestDto.ssn)
             }
-            val customer = Customer(
-                requestDto.firstName,
-                requestDto.middleName,
-                requestDto.lastName,
-                requestDto.ssn,
-                requestDto.birthDate,
-                requestDto.email,
-                requestDto.gender,
-                requestDto.phoneNumber,
-                Instant.now(),
-                ZoneId.systemDefault()
-            )
+            val customer = Customer(requestDto)
             val savedCustomer = customerRepository.save(customer)
             CustomerResponseMapperUtil.map(savedCustomer)
         }

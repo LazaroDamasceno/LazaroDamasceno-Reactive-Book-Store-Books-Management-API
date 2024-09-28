@@ -19,29 +19,22 @@ class Book {
     var publisher: String
     var numberOfPages: Int
     var version: Int
+    var publishingYear: Int
     val createdAt: Instant = Instant.now()
     val creationZoneId: ZoneId = ZoneId.systemDefault()
     var modifiedAt: Instant? = null
     var modificationZoneId: ZoneId? = null
 
-    constructor(
-        title: String,
-        subtitle: String?,
-        isbn: String,
-        author: String,
-        field: String,
-        publisher: String,
-        numberOfPages: Int,
-        version: Int
-    ) {
-        this.title = title
-        this.subtitle = subtitle
-        this.isbn = isbn
-        this.author = author
-        this.field = field
-        this.publisher = publisher
-        this.numberOfPages = numberOfPages
-        this.version = version
+    constructor(requestDto: BookRegistrationRequestDto) {
+        this.title = requestDto.title
+        this.subtitle = requestDto.subtitle
+        this.isbn = requestDto.isbn
+        this.author = requestDto.author
+        this.field = requestDto.field
+        this.publisher = requestDto.publisher
+        this.numberOfPages = requestDto.numberOfPages
+        this.version = requestDto.version
+        this.publishingYear = requestDto.publishingYear
     }
 
     fun modify(requestDto: BookModificationRequestDto) {
