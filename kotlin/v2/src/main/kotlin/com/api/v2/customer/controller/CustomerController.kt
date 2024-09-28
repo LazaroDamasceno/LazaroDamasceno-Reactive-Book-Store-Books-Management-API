@@ -38,8 +38,11 @@ class CustomerController {
     }
 
     @PutMapping("{ssn}")
-    @ResponseStatus(value = HttpStatus.OK)
-    suspend fun modify(@PathVariable ssn: @SSN String, @RequestBody requestDto: @Valid CustomerModificationRequestDto) {
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun modify(
+        @PathVariable ssn: @SSN String,
+        @RequestBody requestDto: @Valid CustomerModificationRequestDto
+    ): Customer {
         return customerModificationService.modify(ssn, requestDto)
     }
 

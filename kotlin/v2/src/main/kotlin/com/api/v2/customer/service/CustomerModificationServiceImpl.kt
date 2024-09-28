@@ -1,6 +1,7 @@
 package com.api.v2.customer.service
 
 import com.api.v2.customer.anotations.SSN
+import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerModificationRequestDto
 import com.api.v2.customer.utils.CustomerFinderUtil
@@ -19,13 +20,17 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
     @Autowired
     lateinit var customerRepository: CustomerRepository
 
-    override suspend fun modify(ssn: @SSN String, requestDto: @Valid CustomerModificationRequestDto) {
+    @Autowired
+    lateinit var customerRegistrationService: CustomerRegistrationService
+
+    override suspend fun modify(
+        ssn: @SSN String,
+        requestDto: @Valid CustomerModificationRequestDto
+    ): Customer {
         return withContext(Dispatchers.IO) {
             val customer = customerFinderUtil.find(ssn)
-            val finishedCustomer = customer.finish()
-            val savedFinishCustomer = customerRepository.save(finishedCustomer)
-            val modifiedCustomer = savedFinishCustomer.modify(requestDto)
-            customerRepository.save(modifiedCustomer)
+            customer.modify(requestDto)
+            customerRepository.save(customer)
         }
     }
 

@@ -6,8 +6,7 @@ import com.api.v2.customer.exceptions.DuplicatedSsnException
 import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.domain.CustomerRepository
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
-import jakarta.validation.Valid
-import kotlinx.coroutines.Dispatchers
+import jakarta.validation.Valid import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.withContext
@@ -28,7 +27,6 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 throw DuplicatedSsnException(requestDto.ssn)
             }
             val customer = Customer(
-                null,
                 requestDto.firstName,
                 requestDto.middleName,
                 requestDto.lastName,
@@ -38,9 +36,7 @@ private class CustomerRegistrationServiceImpl: CustomerRegistrationService {
                 requestDto.gender,
                 requestDto.phoneNumber,
                 Instant.now(),
-                ZoneId.systemDefault(),
-                null,
-                null
+                ZoneId.systemDefault()
             )
             val savedCustomer = customerRepository.save(customer)
             CustomerResponseMapperUtil.map(savedCustomer)

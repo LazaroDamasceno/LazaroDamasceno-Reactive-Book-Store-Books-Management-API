@@ -18,14 +18,12 @@ class CustomerFinderUtil {
 
     suspend fun find(ssn: String): Customer {
         return withContext(Dispatchers.IO) {
-            val existingCustomer = customerRepository
-                .findAll()
-                .filter { e -> e.ssn == ssn && e.modifiedAt == null }
+            val customer = customerRepository.
+                findAll()
+                .filter { e -> e.ssn == ssn }
                 .singleOrNull()
-            if (existingCustomer == null) {
-                    throw CustomerNotFoundException()
-            }
-            existingCustomer
+            if (customer == null) throw CustomerNotFoundException()
+            customer
         }
     }
 

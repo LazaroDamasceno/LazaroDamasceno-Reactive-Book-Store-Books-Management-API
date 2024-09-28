@@ -1,6 +1,5 @@
 package com.api.v2
 
-import com.api.v2.customer.domain.Customer
 import com.api.v2.customer.dtos.CustomerRegistrationRequestDto
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
