@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("api/v2/customers")
+@RequestMapping("api/v2/books")
 class BookController {
 
     @Autowired
