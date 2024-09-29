@@ -2,7 +2,9 @@ package com.api.v2.book.services
 
 import com.api.v2.book.domain.BookRepository
 import com.api.v2.book.utils.BookFinderUtil
+import com.api.v2.exceptions.EmptyEntityException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -25,6 +27,9 @@ private class BookDeletionServiceImpl: BookDeletionService {
 
     override suspend fun deleteAll() {
         return withContext(Dispatchers.IO) {
+            if (bookRepository.findAll().count() == 0) {
+                throw EmptyEntityException()
+            }
             bookRepository.deleteAll()
         }
     }
