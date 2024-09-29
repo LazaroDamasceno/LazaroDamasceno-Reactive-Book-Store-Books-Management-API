@@ -8,9 +8,7 @@ import com.api.v2.book.services.BookModificationService
 import com.api.v2.book.services.BookRegistrationService
 import com.api.v2.book.services.BookRetrievalService
 import jakarta.validation.Valid
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -35,6 +33,7 @@ class BookController: BookRetrievalService {
     }
 
     @PutMapping("{isbn}")
+    @ResponseStatus(value = HttpStatus.OK)
     suspend fun modify(
         @PathVariable isbn: @ISBN String,
         @RequestBody requestDto: @Valid BookModificationRequestDto
@@ -43,11 +42,13 @@ class BookController: BookRetrievalService {
     }
 
     @GetMapping("{isbn}")
+    @ResponseStatus(value = HttpStatus.OK)
     override suspend fun findByIsbn(@PathVariable isbn: @ISBN String): BookResponseDto {
         return bookRetrievalService.findByIsbn(isbn)
     }
 
     @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
     override suspend fun findAll(): Flow<BookResponseDto> {
         return bookRetrievalService.findAll()
     }

@@ -7,13 +7,13 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.*
+import java.util.UUID
 
 @Table("customers")
 class Customer {
 
     @Id
-    var id: UUID? = null
+    var id: String? = null
     lateinit var firstName: String
     var middleName: String? = null
     lateinit var lastName: String
@@ -27,7 +27,7 @@ class Customer {
     var archivedAt: Instant? = null
     var archivingZoneId: ZoneId? = null
 
-    constructor() {}
+    constructor()
 
     constructor(requestDto: CustomerRegistrationRequestDto) {
         this.firstName = requestDto.firstName
