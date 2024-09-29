@@ -25,7 +25,7 @@ private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
 
     override suspend fun findBySsn(ssn: @SSN String): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
-            val customer = customerFinderUtil.find(ssn)
+            val customer = customerFinderUtil.findOne(ssn)
             CustomerResponseMapperUtil.map(customer)
         }
     }

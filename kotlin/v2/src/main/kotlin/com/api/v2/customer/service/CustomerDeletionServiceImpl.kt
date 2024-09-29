@@ -30,8 +30,8 @@ private class CustomerDeletionServiceImpl: CustomerDeletionService {
 
     override suspend fun deleteBySsn(ssn: @SSN String) {
         return withContext(Dispatchers.IO) {
-            val customer = customerFinderUtil.find(ssn)
-            customerRepository.delete(customer)
+            val customers = customerFinderUtil.findMany(ssn)
+            customerRepository.deleteAll(customers)
         }
     }
 

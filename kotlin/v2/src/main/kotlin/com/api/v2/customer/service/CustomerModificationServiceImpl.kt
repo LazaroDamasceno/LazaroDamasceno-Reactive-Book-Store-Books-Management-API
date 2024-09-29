@@ -28,7 +28,7 @@ private class CustomerModificationServiceImpl: CustomerModificationService {
         requestDto: @Valid CustomerModificationRequestDto
     ): CustomerResponseDto {
         return withContext(Dispatchers.IO) {
-            val customer = customerFinderUtil.find(ssn)
+            val customer = customerFinderUtil.findOne(ssn)
             customer.archive()
             val archivedCustomer = customerRepository.save(customer)
             customerRegistrationService.register(archivedCustomer, requestDto)
