@@ -4,6 +4,7 @@ import com.api.v2.book.annotations.ISBN
 import com.api.v2.book.dtos.BookModificationRequestDto
 import com.api.v2.book.dtos.BookRegistrationRequestDto
 import com.api.v2.book.dtos.BookResponseDto
+import com.api.v2.book.services.BookDeletionService
 import com.api.v2.book.services.BookModificationService
 import com.api.v2.book.services.BookRegistrationService
 import com.api.v2.book.services.BookRetrievalService
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api/v2/books")
-class BookController: BookRetrievalService {
+class BookController {
 
     @Autowired
     private lateinit var bookRegistrationService: BookRegistrationService
@@ -25,6 +26,9 @@ class BookController: BookRetrievalService {
 
     @Autowired
     private lateinit var bookRetrievalService: BookRetrievalService
+
+    @Autowired
+    private lateinit var bookDeletionService: BookDeletionService
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -43,14 +47,26 @@ class BookController: BookRetrievalService {
 
     @GetMapping("{isbn}")
     @ResponseStatus(value = HttpStatus.OK)
-    override suspend fun findByIsbn(@PathVariable isbn: @ISBN String): BookResponseDto {
+    suspend fun findByIsbn(@PathVariable isbn: @ISBN String): BookResponseDto {
         return bookRetrievalService.findByIsbn(isbn)
     }
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    override suspend fun findAll(): Flow<BookResponseDto> {
+    suspend fun findAll(): Flow<BookResponseDto> {
         return bookRetrievalService.findAll()
+    }
+
+    @DeleteMapping("{isbn}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteByIsbn(@PathVariable isbn: @ISBN String) {
+        return bookDeletionService.deleteByIsbn(isbn)
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteAll() {
+        return bookDeletionService.deleteAll()
     }
 
 }
