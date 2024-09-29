@@ -13,7 +13,7 @@ import java.util.UUID
 class Customer {
 
     @Id
-    var id: String? = null
+    var id: UUID? = null
     lateinit var firstName: String
     var middleName: String? = null
     lateinit var lastName: String

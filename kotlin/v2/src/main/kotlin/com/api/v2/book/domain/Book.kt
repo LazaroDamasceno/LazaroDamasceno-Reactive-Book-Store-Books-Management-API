@@ -12,7 +12,7 @@ import java.util.UUID
 class Book {
 
     @Id
-    var id: String? = null
+    var id: UUID? = null
     lateinit var title: String
     var subtitle: String? = null
     lateinit var isbn: String
