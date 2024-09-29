@@ -16,11 +16,11 @@ class BookFinderUtil {
     @Autowired
     private lateinit var bookRepository: BookRepository
 
-    suspend fun find(isbn: String): Book {
+    suspend fun findOne(isbn: String): Book {
         return withContext(Dispatchers.IO) {
             val existingBook = bookRepository
                     .findAll()
-                    .filter { e -> e.isbn == isbn}
+                    .filter { e -> e.isbn == isbn && e.archivedAt == null }
                     .singleOrNull()
             if (existingBook == null) throw BookNotFoundException(isbn)
             existingBook

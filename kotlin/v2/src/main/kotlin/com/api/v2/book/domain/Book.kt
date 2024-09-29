@@ -58,6 +58,7 @@ class Book {
         this.numberOfPages = requestDto.numberOfPages
         this.version = requestDto.version
         this.publishingYear = requestDto.publishingYear
+        this.price = requestDto.price
         this.createdAt = createdAt
         this.creationZoneId = creationZoneId
     }

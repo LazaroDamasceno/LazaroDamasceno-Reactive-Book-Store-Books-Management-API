@@ -11,5 +11,6 @@ data class BookModificationRequestDto(
     val publisher: @NotBlank String,
     val numberOfPages: @Min(1) Int,
     val version: @Min(1) Int,
-    val publishingYear: Int
+    val publishingYear: Int,
+    val price: Double
 )

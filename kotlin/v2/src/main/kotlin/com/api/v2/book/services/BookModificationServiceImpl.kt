@@ -25,7 +25,7 @@ private class BookModificationServiceImpl: BookModificationService {
 
     override suspend fun modify(isbn: @ISBN String, requestDto: @Valid BookModificationRequestDto): BookResponseDto {
         return withContext(Dispatchers.IO) {
-            val book = bookFinderUtil.find(isbn)
+            val book = bookFinderUtil.findOne(isbn)
             book.archive()
             val savedArchivedBook = bookRepository.save(book)
             bookRegistrationService.register(savedArchivedBook, requestDto)
