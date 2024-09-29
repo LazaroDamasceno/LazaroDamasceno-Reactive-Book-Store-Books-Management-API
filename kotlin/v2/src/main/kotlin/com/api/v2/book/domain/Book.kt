@@ -19,9 +19,10 @@ class Book {
     lateinit var author: String
     lateinit var field: String
     lateinit var publisher: String
-    var numberOfPages: Int = 1
-    var version: Int = 1
+    var numberOfPages: Int = 0
+    var version: Int = 0
     var publishingYear: Int = 0
+    var price: Double = 0.0
     var createdAt: Instant = Instant.now()
     var creationZoneId: ZoneId = ZoneId.systemDefault()
     var archivedAt: Instant? = null
@@ -39,6 +40,7 @@ class Book {
         this.numberOfPages = requestDto.numberOfPages
         this.version = requestDto.version
         this.publishingYear = requestDto.publishingYear
+        this.price = requestDto.price
     }
 
     constructor(
