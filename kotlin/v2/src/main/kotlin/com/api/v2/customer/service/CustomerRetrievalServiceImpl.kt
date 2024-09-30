@@ -9,6 +9,7 @@ import com.api.v2.exceptions.EmptyEntityException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,6 +38,7 @@ private class CustomerRetrievalServiceImpl: CustomerRetrievalService {
             }
             customerRepository
                 .findAll()
+                .filter { e -> e.archivedAt == null }
                 .map { e -> CustomerResponseMapperUtil.map(e) }
         }
     }

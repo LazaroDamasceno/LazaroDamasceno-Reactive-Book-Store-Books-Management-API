@@ -9,6 +9,7 @@ import com.api.v2.exceptions.EmptyEntityException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,7 +35,9 @@ private class BookRetrievalServiceImpl: BookRetrievalService {
         return withContext(Dispatchers.IO) {
             val books = bookRepository.findAll()
             if (books.count() == 0) throw EmptyEntityException()
-            books.map { e -> BookResponseMapper.map(e) }
+            books
+                .filter { e -> e.archivedAt == null }
+                .map { e -> BookResponseMapper.map(e) }
         }
     }
 
