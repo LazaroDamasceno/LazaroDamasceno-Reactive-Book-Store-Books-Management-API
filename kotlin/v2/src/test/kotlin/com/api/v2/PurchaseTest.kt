@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PurchaseTest {
+private class PurchaseTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
@@ -18,12 +18,16 @@ class PurchaseTest {
     @Test
     @Order(1)
     fun testSuccessfulPurchase() {
-        webTestClient
-            .post()
-            .uri("api/v2/purchases/123456789/1234567890123")
-            .exchange()
-            .expectStatus()
-            .is2xxSuccessful()
+        var cases = 30;
+        while (cases > 0) {
+            webTestClient
+                .post()
+                .uri("api/v2/purchases/123456789/1234567890123")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+            cases--
+        }
     }
 
     @Test

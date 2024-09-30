@@ -12,7 +12,7 @@ class PurchaseOrderNumberGenerator {
         private var response = BigInteger(format)
 
         fun generate(): BigInteger {
-            response = response.add(BigInteger.ONE)
+            response = response.plus(BigInteger.ONE)
             return response
         }
 

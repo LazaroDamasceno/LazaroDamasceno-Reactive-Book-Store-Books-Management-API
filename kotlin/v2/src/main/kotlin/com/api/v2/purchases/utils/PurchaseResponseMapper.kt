@@ -21,8 +21,8 @@ class PurchaseResponseMapper {
     suspend fun map(purchase: Purchase): PurchaseResponseDto {
         return PurchaseResponseDto(
                 purchase.orderNumber,
-                CustomerResponseMapperUtil.map(customerRepository.findById(purchase.customer)!!),
-                BookResponseMapper.map(bookRepository.findById(purchase.book)!!),
+                CustomerResponseMapperUtil.map(customerRepository.findById(purchase.customerId)!!),
+                BookResponseMapper.map(bookRepository.findById(purchase.bookId)!!),
                 purchase.price,
                 purchase.finalPrice
         )
