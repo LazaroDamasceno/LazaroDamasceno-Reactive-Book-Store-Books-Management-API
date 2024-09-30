@@ -3,6 +3,7 @@ package com.api.v2.purchases.controllers
 import com.api.v2.book.annotations.ISBN
 import com.api.v2.customer.anotations.SSN
 import com.api.v2.purchases.dtos.PurchaseResponseDto
+import com.api.v2.purchases.services.PurchaseDeletionService
 import com.api.v2.purchases.services.PurchaseRetrievalService
 import com.api.v2.purchases.services.PurchaseService
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,9 @@ class PurchaseController {
 
     @Autowired
     private lateinit var purchaseRetrievalService: PurchaseRetrievalService
+
+    @Autowired
+    private lateinit var purchaseDeletionService: PurchaseDeletionService
 
     @PostMapping("{ssn}/{isbn}")
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -39,6 +43,18 @@ class PurchaseController {
     @ResponseStatus(value = HttpStatus.OK)
     suspend fun findAll(): Flow<PurchaseResponseDto> {
         return purchaseRetrievalService.findAll()
+    }
+
+    @DeleteMapping("{orderNumber}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteByOrderNumber(@PathVariable orderNumber: String) {
+        return purchaseDeletionService.deleteByOrderNumber(orderNumber)
+    }
+
+    @DeleteMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    suspend fun deleteAll() {
+        return purchaseDeletionService.deleteAll()
     }
 
 }
